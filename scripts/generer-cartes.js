@@ -19,6 +19,7 @@ import { formatDate } from '../js/utils/dom.js';
 import { corrections } from '../js/data/corrections.js';
 import { cartesAReverifier } from './a-reverifier.js';
 import { cartesLiees } from '../js/utils/liees.js';
+import { estPubliee } from '../js/utils/calendrier.js';
 
 const parId = Object.fromEntries(themes.map((t) => [t.id, t]));
 const police = (graisse) => readFile(`node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-${graisse}-normal.woff`);
@@ -177,7 +178,7 @@ function pageCarte(fait) {
     </article>
 
     <section class="mt-6 flex flex-col gap-2" aria-labelledby="lire-aussi">
-      <h2 id="lire-aussi" class="text-sm font-semibold text-stone-300">À lire aussi</h2>${cartesLiees(fait, faits).map((f) => `
+      <h2 id="lire-aussi" class="text-sm font-semibold text-stone-300">À lire aussi</h2>${cartesLiees(fait, faits.filter((f) => estPubliee(f))).map((f) => `
       <a href="${f.id}.html" class="flex flex-col gap-1 rounded-xl border border-ink-600 bg-ink-800 p-3 text-sm text-stone-200 hover:border-brass-500">
         <span class="text-xs text-stone-400">${echapper(parId[f.theme]?.nom ?? '')}</span>
         <span class="font-medium leading-snug">${echapper(f.ideeRecue)}</span>

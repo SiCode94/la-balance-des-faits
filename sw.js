@@ -1,6 +1,6 @@
 // Service worker : tout le site est téléchargé dès la première visite, pour fonctionner hors connexion.
 // En ligne, on va toujours chercher la dernière version (réseau d'abord) ; hors ligne, on sert la copie.
-const CACHE = 'balance-v6';
+const CACHE = 'balance-v7';
 
 // Fichiers du site. En ajouter un ici quand on crée une page, un script ou une image.
 const FICHIERS = [
@@ -8,8 +8,8 @@ const FICHIERS = [
   'css/tailwind.css', 'css/styles.css',
   'fonts/bricolage-grotesque-latin-500-normal.woff2', 'fonts/bricolage-grotesque-latin-700-normal.woff2',
   'icons/logo.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png',
-  'js/main.js', 'js/config.js', 'js/statistiques.js', 'js/utils/dom.js', 'js/utils/badges.js', 'js/utils/recherche.js', 'js/utils/liees.js', 'js/data/faits.js', 'js/data/themes.js',
-  'js/components/detail.js', 'js/components/installation.js', 'js/components/questions.js', 'js/components/quiz.js', 'js/components/filtres.js',
+  'js/main.js', 'js/config.js', 'js/statistiques.js', 'js/utils/dom.js', 'js/utils/badges.js', 'js/utils/recherche.js', 'js/utils/liees.js', 'js/utils/calendrier.js', 'js/utils/progression.js', 'js/utils/partage.js', 'js/data/faits.js', 'js/data/themes.js',
+  'js/components/detail.js', 'js/components/installation.js', 'js/components/questions.js', 'js/components/quiz.js', 'js/components/filtres.js', 'js/components/defi.js',
   'js/components/tabs.js', 'js/components/tile.js', 'js/components/visualisation.js',
 ];
 

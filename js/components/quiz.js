@@ -2,52 +2,61 @@ import { el } from '../utils/dom.js';
 import { VERDICTS } from './detail.js';
 import { config } from '../config.js';
 import { compter } from '../statistiques.js';
+import { partagerTexte } from '../utils/partage.js';
 
 const NB_QUESTIONS = 10;
 const CLE_RECORD = 'quiz-record';
 
-const boutonPrincipal = 'rounded-full bg-brass-500 px-5 py-2 text-sm font-semibold text-ink-900 hover:bg-brass-400';
-const boutonSecondaire = 'rounded-full border border-brass-500 px-5 py-2 text-sm font-semibold text-brass-300 hover:bg-brass-500 hover:text-ink-900';
+export const boutonPrincipal = 'rounded-full bg-brass-500 px-5 py-2 text-sm font-semibold text-ink-900 hover:bg-brass-400';
+export const boutonSecondaire = 'rounded-full border border-brass-500 px-5 py-2 text-sm font-semibold text-brass-300 hover:bg-brass-500 hover:text-ink-900';
+const lienDiscret = 'text-sm font-medium text-stone-300 underline underline-offset-4';
 
 /**
- * Quiz sur les chiffres (élément <dialog>) : `ouvrir()`. Chaque carte qui a un champ `quiz`
- * fournit une question à choix multiples. `onVoirCarte(fait, reprendre)` ouvre la fiche complète d'une carte
- * et doit appeler `reprendre()` à sa fermeture, pour revenir au quiz là où on en était.
+ * Moteur de quiz (élément <dialog>) : `ouvrir(partie)`. Une partie décrit :
+ *  cle        identifiant (une partie interrompue avec la même clé reprend là où on en était)
+ *  titre      affiché en tête (« Quiz des chiffres », « Défi du jour »)
+ *  questions  cartes ayant un champ `quiz`
+ *  reponses   (facultatif) réponses déjà données [true, false, null…] : on reprend à la première null
+ *  surReponse (facultatif) (index, juste) => void, appelé à chaque réponse
+ *  resultat   (reponses, { rejouer, fermer }) => contenu de l'écran final
+ * `onVoirCarte(fait, reprendre)` ouvre une carte et doit appeler `reprendre()` à sa fermeture.
  */
-export function createQuiz(dialog, faits, themes, onVoirCarte) {
+export function createQuiz(dialog, themes, onVoirCarte) {
   const parId = Object.fromEntries(themes.map((t) => [t.id, t]));
-  let questions = [];
+  let partie = null;
+  let reponses = [];
   let rang = 0;
-  let score = 0;
   let enCours = false; // une partie commencée et pas encore terminée
 
   dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
 
-  function demarrer() {
-    questions = melanger(faits.filter((f) => f.quiz)).slice(0, NB_QUESTIONS);
-    rang = 0;
-    score = 0;
-    enCours = true;
-    afficherQuestion();
+  const score = () => reponses.filter(Boolean).length;
+
+  function demarrer(nouvelle) {
+    partie = nouvelle;
+    reponses = partie.questions.map((_, i) => partie.reponses?.[i] ?? null);
+    rang = reponses.indexOf(null);
+    if (rang === -1) { afficherResultat(); } else { enCours = true; afficherQuestion(); }
     if (!dialog.open) dialog.showModal();
   }
 
   function entete() {
-    const fermer = el('button', { type: 'button', class: 'text-sm font-medium text-stone-300 underline underline-offset-4' }, 'Fermer');
+    const fermer = el('button', { type: 'button', class: lienDiscret }, 'Fermer');
     fermer.addEventListener('click', () => dialog.close());
     return el('div', { class: 'flex items-center justify-between gap-3' }, [
-      el('span', { class: 'text-sm font-medium text-stone-400' }, `Question ${rang + 1} sur ${questions.length} · Score : ${score}`),
+      el('span', { class: 'text-sm font-medium text-stone-400' },
+        `${partie.titre} · Question ${rang + 1} sur ${partie.questions.length} · Score : ${score()}`),
       fermer,
     ]);
   }
 
   function progression() {
     return el('div', { class: 'h-1.5 overflow-hidden rounded-full bg-ink-600' },
-      el('div', { class: 'h-full rounded-full bg-brass-500 transition-all', style: `width:${(rang / questions.length) * 100}%` }));
+      el('div', { class: 'h-full rounded-full bg-brass-500 transition-all', style: `width:${(rang / partie.questions.length) * 100}%` }));
   }
 
   function afficherQuestion() {
-    const fait = questions[rang];
+    const fait = partie.questions[rang];
     const boutons = fait.quiz.choix.map((choix, i) => {
       const b = el('button', {
         type: 'button',
@@ -69,14 +78,15 @@ export function createQuiz(dialog, faits, themes, onVoirCarte) {
   function corriger(fait, choisi) {
     const { choix, reponse } = fait.quiz;
     const juste = choisi === reponse;
-    if (juste) score += 1;
+    reponses[rang] = juste;
+    partie.surReponse?.(rang, juste);
     const verdict = VERDICTS[fait.verdict] ?? VERDICTS.nuance;
-    const derniere = rang === questions.length - 1;
+    const derniere = !reponses.includes(null);
 
     const suivante = el('button', { type: 'button', autofocus: true, class: boutonPrincipal }, derniere ? 'Voir mon score' : 'Question suivante');
     suivante.addEventListener('click', () => {
-      rang += 1;
-      if (derniere) afficherResultat(); else afficherQuestion();
+      rang = reponses.indexOf(null);
+      if (rang === -1) afficherResultat(); else afficherQuestion();
     });
     const voir = el('button', { type: 'button', class: 'text-sm font-medium text-brass-400 underline underline-offset-4' }, 'Voir la carte complète');
     voir.addEventListener('click', () => { dialog.close(); onVoirCarte(fait, reprendre); });
@@ -110,26 +120,10 @@ export function createQuiz(dialog, faits, themes, onVoirCarte) {
 
   function afficherResultat() {
     enCours = false;
-    const total = questions.length;
-    const record = Math.max(score, lireRecord());
-    ecrireRecord(record);
-    compter('quiz-termine', `Quiz terminé : ${score}/${total}`, true);
-
-    const rejouer = el('button', { type: 'button', class: boutonSecondaire }, 'Rejouer');
-    rejouer.addEventListener('click', demarrer);
-    const partager = el('button', { type: 'button', autofocus: true, class: boutonPrincipal }, 'Partager mon score');
-    partager.addEventListener('click', () => partagerScore(score, total, partager));
-    const fermer = el('button', { type: 'button', class: 'text-sm font-medium text-stone-300 underline underline-offset-4' }, 'Retour aux cartes');
-    fermer.addEventListener('click', () => dialog.close());
-
-    afficher([
-      el('p', { class: 'text-sm font-medium text-stone-400' }, 'Quiz terminé'),
-      el('p', { class: 'font-display text-6xl font-bold tracking-tight text-brass-400' }, `${score}/${total}`),
-      el('p', { class: 'font-display text-xl font-bold text-stone-100' }, appreciation(score / total)),
-      el('p', { class: 'text-sm text-stone-400' }, `Votre record : ${record}/${total}`),
-      el('div', { class: 'flex flex-wrap gap-3 pt-2' }, [partager, rejouer]),
-      fermer,
-    ]);
+    afficher(partie.resultat(reponses, {
+      rejouer: () => demarrer(partie.nouvelle ? partie.nouvelle() : partie),
+      fermer: () => dialog.close(),
+    }));
   }
 
   function afficher(enfants) {
@@ -142,32 +136,57 @@ export function createQuiz(dialog, faits, themes, onVoirCarte) {
     if (!dialog.open) dialog.showModal();
   }
 
-  // « Jouer » reprend une partie interrompue au lieu de la perdre ; sinon, nouvelle partie.
-  return { ouvrir: () => (enCours ? reprendre() : demarrer()) };
+  return {
+    /** Reprend la partie interrompue si c'est la même ; sinon, la démarre. */
+    ouvrir(nouvelle) {
+      if (enCours && partie?.cle === nouvelle.cle) reprendre(); else demarrer(nouvelle);
+    },
+  };
 }
 
-function appreciation(part) {
+/** Quiz libre : 10 questions au hasard parmi les cartes publiées, autant de parties qu'on veut. */
+export function partieLibre(faits) {
+  const nouvelle = () => ({
+    cle: 'libre',
+    titre: 'Quiz des chiffres',
+    questions: melanger(faits.filter((f) => f.quiz)).slice(0, NB_QUESTIONS),
+    nouvelle,
+    resultat(reponses, { rejouer, fermer }) {
+      const total = reponses.length;
+      const score = reponses.filter(Boolean).length;
+      const meilleur = Math.max(score, lireRecord());
+      ecrireRecord(meilleur);
+      compter('quiz-termine', `Quiz terminé : ${score}/${total}`, true);
+
+      const rejouerB = el('button', { type: 'button', class: boutonSecondaire }, 'Rejouer');
+      rejouerB.addEventListener('click', rejouer);
+      const partager = el('button', { type: 'button', autofocus: true, class: boutonPrincipal }, 'Partager mon score');
+      partager.addEventListener('click', () => {
+        compter('partage/quiz', 'Partage du score du quiz', true);
+        partagerTexte(`J'ai eu ${score}/${total} au quiz des chiffres de La Balance des Faits. Et vous, vous connaissez les vrais chiffres ?`,
+          `${config.site}#quiz`, partager);
+      });
+      const fermerB = el('button', { type: 'button', class: lienDiscret }, 'Retour aux cartes');
+      fermerB.addEventListener('click', fermer);
+
+      return [
+        el('p', { class: 'text-sm font-medium text-stone-400' }, 'Quiz terminé'),
+        el('p', { class: 'font-display text-6xl font-bold tracking-tight text-brass-400' }, `${score}/${total}`),
+        el('p', { class: 'font-display text-xl font-bold text-stone-100' }, appreciation(score / total)),
+        el('p', { class: 'text-sm text-stone-400' }, `Votre record : ${meilleur}/${total}`),
+        el('div', { class: 'flex flex-wrap gap-3 pt-2' }, [partager, rejouerB]),
+        fermerB,
+      ];
+    },
+  });
+  return nouvelle();
+}
+
+export function appreciation(part) {
   if (part === 1) return 'Sans faute ! Les chiffres n\'ont pas de secret pour vous.';
   if (part >= 0.7) return 'Très bien ! Vous ne vous laissez pas avoir par les idées reçues.';
   if (part >= 0.4) return 'Pas mal, mais certaines idées reçues ont la vie dure.';
   return 'Les idées reçues vous ont eu… Les cartes sont là pour ça !';
-}
-
-async function partagerScore(score, total, bouton) {
-  const url = `${config.site}#quiz`;
-  const texte = `J'ai eu ${score}/${total} au quiz des chiffres de La Balance des Faits. Et vous, vous connaissez les vrais chiffres ?`;
-  compter('partage/quiz', 'Partage du score du quiz', true);
-  if (navigator.share) {
-    try { await navigator.share({ title: 'La Balance des Faits', text: texte, url }); } catch { /* partage annulé */ }
-    return;
-  }
-  try {
-    await navigator.clipboard.writeText(`${texte} ${url}`);
-    bouton.textContent = 'Texte copié';
-  } catch {
-    bouton.textContent = 'Copie impossible';
-  }
-  setTimeout(() => { bouton.textContent = 'Partager mon score'; }, 2000);
 }
 
 /** Copie mélangée (Fisher-Yates). */

@@ -1333,4 +1333,226 @@ export const faits = [
     verifieLe: '2026-10-26',
     publieLe: '2026-10-26',
   },
+  {
+    id: 'mortalite-routiere',
+    theme: 'transports',
+    ideeRecue: 'La mortalité routière continue de baisser.',
+    verdict: 'faux',
+    chiffre: {
+      valeur: '3 263',
+      legende: 'personnes tuées sur les routes de métropole en 2025, soit 70 de plus qu\'en 2024.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' tués',
+      items: [
+        { label: '2024 (métropole)', valeur: 3193 },
+        { label: '2025 (métropole)', valeur: 3263, accent: true },
+      ],
+    },
+    explication:
+      'La mortalité routière est repartie à la hausse en 2025, et revient au niveau de 2019, avant la crise sanitaire. Avec l\'outre-mer, 3 515 personnes sont mortes sur les routes. Le nombre de piétons tués augmente nettement (503, soit 47 de plus qu\'en 2024).',
+    source: {
+      nom: 'ONISR (Sécurité routière), bilan de l\'accidentalité 2025',
+      url: 'https://www.onisr.securite-routiere.gouv.fr/sites/default/files/2026-01/20260130_Bilan%20provisoire%202025_ONISR.pdf',
+    },
+    quiz: {
+      question: 'Combien de personnes ont été tuées sur les routes de métropole en 2025 ?',
+      choix: ['Environ 800', 'Environ 3 300', 'Environ 9 000', 'Environ 16 000'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-27',
+  },
+  {
+    id: 'nombre-medecins',
+    theme: 'sante',
+    ideeRecue: 'Il y a de moins en moins de médecins en France.',
+    verdict: 'faux',
+    chiffre: {
+      valeur: '237 200',
+      legende: 'médecins en activité au 1er janvier 2025, soit 9,9 % de plus qu\'en 2012.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' médecins',
+      items: [
+        { label: 'Autres spécialités', valeur: 137200 },
+        { label: 'Médecins généralistes', valeur: 100000, accent: true },
+      ],
+    },
+    explication:
+      'Le nombre total de médecins augmente, avec une part croissante de diplômés à l\'étranger. Les difficultés d\'accès aux soins sont pourtant réelles : le nombre de généralistes a baissé entre 2018 et 2024 (−0,5 % par an), avant de repartir à la hausse en 2025 (+1 %). Comme la population augmente et vieillit, le nombre de généralistes par habitant a reculé, et les écarts entre territoires restent forts.',
+    source: {
+      nom: 'DREES, démographie des médecins au 1er janvier 2025',
+      url: 'https://drees.solidarites-sante.gouv.fr/jeux-de-donnees/jeux-de-donnees/237-200-medecins-sont-en-activite-en-france-au-1er-janvier-2025',
+    },
+    quiz: {
+      question: 'Combien de médecins étaient en activité en France au 1er janvier 2025 ?',
+      choix: ['Environ 52 000', 'Environ 118 000', 'Environ 237 000', 'Environ 610 000'],
+      reponse: 2,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-28',
+  },
+  {
+    id: 'exportations-armes',
+    theme: 'defense',
+    ideeRecue: 'La France est le deuxième exportateur d\'armes au monde.',
+    verdict: 'vrai',
+    chiffre: {
+      valeur: '9,8 %',
+      legende: 'des exportations mondiales d\'armes majeures entre 2021 et 2025 : 2e rang, loin derrière les États-Unis.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' %',
+      max: 100,
+      items: [
+        { label: 'États-Unis', valeur: 42 },
+        { label: 'France', valeur: 9.8, accent: true },
+      ],
+    },
+    explication:
+      'Les exportations françaises ont progressé de 21 % par rapport à 2016-2020, vers 63 pays. L\'Inde, l\'Égypte et la Grèce sont les trois premiers clients. Les États-Unis restent de très loin le premier exportateur (42 % du total), tandis que la Russie a vu ses exportations chuter de 64 %. Ces classements portent sur les livraisons d\'armes majeures (avions, navires, blindés…), mesurées sur cinq ans.',
+    source: {
+      nom: 'SIPRI, tendances des transferts internationaux d\'armes 2025 (mars 2026)',
+      url: 'https://www.sipri.org/sites/default/files/2026-03/fs_2603_at_2025.pdf',
+    },
+    quiz: {
+      question: 'Quelle part des exportations mondiales d\'armes majeures la France a-t-elle réalisée en 2021-2025 ?',
+      choix: ['0,8 %', '3 %', '9,8 %', '25 %'],
+      reponse: 2,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-29',
+  },
+  {
+    id: 'cout-jo-paris',
+    theme: 'sport',
+    ideeRecue: 'Les JO de Paris ont coûté une fortune à l\'argent public.',
+    verdict: 'nuance',
+    chiffre: {
+      valeur: '6,6 Md€',
+      legende: 'de dépenses publiques pour les Jeux olympiques et paralympiques de Paris 2024, selon la Cour des comptes.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' Md€',
+      items: [
+        { label: 'Infrastructures', valeur: 3.63 },
+        { label: 'Organisation (dont 1,44 pour la sécurité)', valeur: 3.02, accent: true },
+      ],
+    },
+    explication:
+      'La facture publique est importante, mais la Cour des comptes ne relève pas de dérapage budgétaire. Plus de la moitié a financé des infrastructures qui restent après les Jeux. Les recettes publiques identifiées sont faibles pour l\'instant (293 millions d\'euros), et la Cour juge l\'impact économique limité. Le comité d\'organisation avance un coût bien plus bas, car il ne compte que ses propres dépenses.',
+    source: {
+      nom: 'Cour des comptes, rapport sur les Jeux de Paris 2024 (repris par Brut)',
+      url: 'https://www.brut.media/fr/articles/jeux-de-paris-2024-6-6-milliards-de-facture-publique-mais-pas-de-derapage-selon-la-cour-des-comptes',
+    },
+    quiz: {
+      question: 'Combien d\'argent public les JO de Paris 2024 ont-ils coûté, selon la Cour des comptes ?',
+      choix: ['660 millions d\'euros', '6,6 milliards d\'euros', '26 milliards d\'euros', '66 milliards d\'euros'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-30',
+  },
+  {
+    id: 'reussite-bac',
+    theme: 'education',
+    ideeRecue: 'Le bac est donné à tout le monde.',
+    verdict: 'nuance',
+    chiffre: {
+      valeur: '91,6 %',
+      legende: 'des candidats ont obtenu le bac en 2025 (sessions de juin et de septembre).',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' %',
+      max: 100,
+      items: [
+        { label: 'Voie générale', valeur: 96.2 },
+        { label: 'Voie technologique', valeur: 90.9 },
+        { label: 'Voie professionnelle', valeur: 83.9, accent: true },
+      ],
+    },
+    explication:
+      'Le taux de réussite est très élevé, mais pas uniforme : plus d\'un candidat sur six échoue au bac professionnel. Sur 744 000 candidats en 2025, environ 62 000 ne l\'ont pas obtenu. Un taux de réussite élevé ne dit pas, à lui seul, si l\'examen est devenu plus facile.',
+    source: {
+      nom: 'DEPP, résultats définitifs du baccalauréat 2025',
+      url: 'https://www.education.gouv.fr/depp/resultats-definitifs-du-baccalaureat-2025-moins-de-bacheliers-dans-les-voies-generale-et-469403',
+    },
+    quiz: {
+      question: 'Quel a été le taux de réussite au bac en 2025, toutes voies confondues ?',
+      choix: ['64 %', '78 %', '91,6 %', '99,2 %'],
+      reponse: 2,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-31',
+  },
+  {
+    id: 'rythme-climat',
+    theme: 'ecologie',
+    ideeRecue: 'La France réduit ses émissions assez vite pour tenir ses objectifs climat.',
+    verdict: 'faux',
+    chiffre: {
+      valeur: '−1,5 %',
+      legende: 'd\'émissions de gaz à effet de serre en 2025, alors qu\'il faudrait environ −4 à −5 % par an.',
+    },
+    visualisation: {
+      type: 'evolution',
+      unite: ' %',
+      items: [
+        { label: 'Baisse en 2024', valeur: -1.8 },
+        { label: 'Baisse en 2025', valeur: -1.5, accent: true },
+        { label: 'Baisse nécessaire chaque année', valeur: -4.6 },
+      ],
+    },
+    explication:
+      'Les émissions françaises baissent, mais environ trois fois moins vite que ce que prévoient les objectifs nationaux : la stratégie bas carbone vise une baisse moyenne de 4,6 % par an d\'ici 2030. En 2025, elles atteignent 364 millions de tonnes d\'équivalent CO₂. Les transports, premier secteur émetteur (34 %), n\'ont reculé que de 1,4 %, tandis que l\'industrie a baissé de 3,5 %.',
+    source: {
+      nom: 'Citepa, estimation des émissions 2025 (avril 2026, reprise par l\'AFP)',
+      url: 'https://www.linfodurable.fr/france-la-baisse-des-emissions-de-gaz-effet-de-serre-insuffisante-en-2025-citepa-55813',
+    },
+    quiz: {
+      question: 'De combien les émissions de gaz à effet de serre de la France ont-elles baissé en 2025 ?',
+      choix: ['−0,2 %', '−1,5 %', '−6 %', '−12 %'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-11-01',
+  },
+  {
+    id: 'loyers',
+    theme: 'logement',
+    ideeRecue: 'Les loyers explosent.',
+    verdict: 'faux',
+    chiffre: {
+      valeur: '+2,4 %',
+      legende: 'de hausse des loyers en un an (janvier 2025), et +1,8 % dans le parc privé.',
+    },
+    visualisation: {
+      type: 'evolution',
+      unite: ' %',
+      items: [
+        { label: 'Parc social', valeur: 3.7 },
+        { label: 'Ensemble des loyers', valeur: 2.4, accent: true },
+        { label: 'Parc privé', valeur: 1.8 },
+      ],
+    },
+    explication:
+      'En moyenne, les loyers des locataires en place augmentent modérément : l\'indice qui sert à les réviser n\'a progressé que de 0,79 % sur un an fin 2025. Cette moyenne nationale peut cacher des hausses plus fortes dans certaines villes, notamment pour les nouveaux locataires, que ces indices mesurent mal.',
+    source: {
+      nom: 'Insee, Informations rapides n° 65 (indices des loyers, janvier 2025)',
+      url: 'https://www.insee.fr/fr/statistiques/fichier/version-html/8384757/IR65_ILH_jan25.pdf',
+    },
+    quiz: {
+      question: 'De combien les loyers ont-ils augmenté en un an en France (janvier 2025) ?',
+      choix: ['+2,4 %', '+9 %', '+15 %', '+24 %'],
+      reponse: 0,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-11-02',
+  },
 ];
