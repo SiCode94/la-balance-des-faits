@@ -13,8 +13,8 @@ import { faits } from '../js/data/faits.js';
 import { themes } from '../js/data/themes.js';
 import { config } from '../js/config.js';
 import { VERDICTS } from '../js/components/detail.js';
-import { largeursBarres } from '../js/components/visualisation.js';
-import { formatNombre, formatDate } from '../js/utils/dom.js';
+import { lignesVisualisation } from '../js/components/visualisation.js';
+import { formatDate } from '../js/utils/dom.js';
 
 const parId = Object.fromEntries(themes.map((t) => [t.id, t]));
 const police = (graisse) => readFile(`node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-${graisse}-normal.woff`);
@@ -88,7 +88,7 @@ function pageCarte(fait) {
   const imageUrl = `${config.site}cartes/images/${fait.id}.png`;
   const resume = `${verdict.label} : ${fait.chiffre.valeur} ${fait.chiffre.legende}`;
   const viz = fait.visualisation;
-  const largeurs = viz?.type === 'barres' ? largeursBarres(viz) : [];
+  const lignes = lignesVisualisation(viz);
 
   const claimReview = {
     '@context': 'https://schema.org',
@@ -104,14 +104,14 @@ function pageCarte(fait) {
     itemReviewed: { '@type': 'Claim', name: fait.ideeRecue },
   };
 
-  const barres = viz?.type === 'barres' ? `
-      <ul class="space-y-3" role="list">${viz.items.map(({ label, valeur, accent }, i) => `
+  const barres = lignes.length ? `
+      <ul class="space-y-3" role="list">${lignes.map(({ label, texte, accent, debut, largeur }) => `
         <li>
           <div class="mb-1 flex justify-between gap-3 text-sm">
             <span class="${accent ? 'font-semibold text-stone-100' : 'text-stone-400'}">${echapper(label)}</span>
-            <span class="tabular-nums font-medium text-stone-100">${echapper(formatNombre(valeur) + (viz.unite ?? ''))}</span>
+            <span class="tabular-nums font-medium text-stone-100">${echapper(texte)}</span>
           </div>
-          <div class="h-2.5 overflow-hidden rounded-full bg-ink-600"><div class="bar-fill h-full rounded-full ${accent ? 'bg-brass-500' : 'bg-stone-500'}" style="--w:${largeurs[i]}%"></div></div>
+          <div class="relative h-2.5 overflow-hidden rounded-full bg-ink-600"><div class="bar-fill h-full rounded-full ${accent ? 'bg-brass-500' : 'bg-stone-500'}" style="--w:${largeur}%;margin-left:${debut}%"></div>${viz.type === 'evolution' ? '<div class="absolute inset-y-0 left-1/2 w-px bg-stone-300"></div>' : ''}</div>
         </li>`).join('')}
       </ul>` : '';
 

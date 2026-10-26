@@ -1010,4 +1010,327 @@ export const faits = [
     verifieLe: '2026-10-26',
     publieLe: '2026-10-26',
   },
+  {
+    id: 'fraude-sociale',
+    theme: 'economie',
+    ideeRecue: 'La fraude sociale, ce sont surtout des allocataires qui trichent.',
+    verdict: 'faux',
+    chiffre: {
+      valeur: '36 %',
+      legende: 'seulement de la fraude sociale estimée vient des bénéficiaires d\'aides ; plus de la moitié vient du travail dissimulé.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' %',
+      max: 100,
+      items: [
+        { label: 'Travail dissimulé, cotisations non payées', valeur: 52 },
+        { label: 'Bénéficiaires de prestations', valeur: 36, accent: true },
+        { label: 'Professionnels de santé', valeur: 12 },
+      ],
+    },
+    explication:
+      'Le Haut Conseil du financement de la protection sociale estime la fraude sociale à environ 14 milliards d\'euros par an. Plus de la moitié correspond à des cotisations que des employeurs ne versent pas, notamment par le travail non déclaré. La fraude des bénéficiaires d\'aides, environ 5 milliards d\'euros, est réelle mais minoritaire. Seule une petite partie est détectée : un peu plus de 2 milliards d\'euros en 2024. La fraude fiscale n\'a pas d\'estimation officielle récente : les chiffres avancés vont de 20 à plus de 80 milliards d\'euros.',
+    source: {
+      nom: 'Haut Conseil du financement de la protection sociale, note de janvier 2026 (reprise par franceinfo)',
+      url: 'https://www.franceinfo.fr/economie/fraude/le-montant-des-fraudes-sociales-en-france-est-estime-a-14-milliards-d-euros-en-2025-principalement-du-au-travail-dissimule-par-des-entreprises_7740532.html',
+    },
+    quiz: {
+      question: 'Quelle part de la fraude sociale estimée vient des bénéficiaires d\'aides ?',
+      choix: ['12 %', '36 %', '71 %', '90 %'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'oqtf-executees',
+    theme: 'immigration',
+    ideeRecue: 'La plupart des mesures d\'expulsion ne sont pas exécutées.',
+    verdict: 'vrai',
+    chiffre: {
+      valeur: '24 985',
+      legende: 'éloignements réalisés en 2025, pour 156 180 mesures d\'éloignement prononcées la même année.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' mesures',
+      items: [
+        { label: 'Mesures d\'éloignement prononcées', valeur: 156180 },
+        { label: 'Éloignements réalisés', valeur: 24985, accent: true },
+      ],
+    },
+    explication:
+      'Les obligations de quitter le territoire (OQTF) forment l\'essentiel des mesures d\'éloignement. En 2025, environ une mesure sur six a été suivie d\'un départ dans l\'année, même si les éloignements ont augmenté de 15,7 %, dont 15 569 éloignements forcés (+21 %). Le ministère de l\'Intérieur prévient que ce rapport ne donne pas un taux d\'exécution exact, notamment parce qu\'une mesure prononcée une année peut être exécutée plus tard.',
+    source: {
+      nom: 'Ministère de l\'Intérieur (DGEF), les éloignements en 2025',
+      url: 'https://www.immigration.interieur.gouv.fr/chiffres-de-limmigration-en-france/eloignements-detrangers-en-situation-irreguliere-en-2025-dynamique-ascendante',
+    },
+    quiz: {
+      question: 'Combien d\'éloignements d\'étrangers en situation irrégulière ont été réalisés en 2025 ?',
+      choix: ['Environ 2 500', 'Environ 25 000', 'Environ 75 000', 'Environ 150 000'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'actes-antisemites',
+    theme: 'societe',
+    ideeRecue: 'Les actes antisémites ont explosé en France.',
+    verdict: 'vrai',
+    chiffre: {
+      valeur: '1 320',
+      legende: 'actes antisémites recensés en 2025, trois fois plus qu\'en 2022.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' actes',
+      items: [
+        { label: '2022', valeur: 436 },
+        { label: '2023', valeur: 1676 },
+        { label: '2024', valeur: 1570 },
+        { label: '2025', valeur: 1320, accent: true },
+      ],
+    },
+    explication:
+      'Les actes antisémites ont presque quadruplé en 2023, après l\'attaque du 7 octobre et la guerre à Gaza. Ils reculent depuis (−16 % en 2025), mais restent à un niveau historiquement élevé et représentent 53 % des actes antireligieux recensés. Les actes antimusulmans ont, eux, bondi de 88 % en 2025 (326 faits), leur plus haut niveau depuis 2015. Ces chiffres ne comptent que les faits ayant donné lieu à une plainte ou à un signalement.',
+    source: {
+      nom: 'Ministère de l\'Intérieur, bilan des actes antireligieux 2025',
+      url: 'https://www.prefectures-regions.gouv.fr/ile-de-france/irecontenu/telechargement/139847/1018971/file/Bilan_actes_anti_religieux_2025.pdf',
+    },
+    quiz: {
+      question: 'Combien d\'actes antisémites ont été recensés en France en 2025 ?',
+      choix: ['Environ 130', 'Environ 450', 'Environ 1 300', 'Environ 13 000'],
+      reponse: 2,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'egalite-salariale',
+    theme: 'emploi',
+    ideeRecue: 'À poste égal, les femmes sont payées autant que les hommes.',
+    verdict: 'faux',
+    chiffre: {
+      valeur: '3,6 %',
+      legende: 'd\'écart de salaire entre femmes et hommes occupant le même emploi dans le même établissement (privé, 2024).',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' %',
+      items: [
+        { label: 'Écart de revenu salarial, tous postes', valeur: 21.8 },
+        { label: 'À temps de travail égal', valeur: 14 },
+        { label: 'Même emploi, même établissement', valeur: 3.6, accent: true },
+      ],
+    },
+    explication:
+      'Même à poste identique, un écart demeure : 3,6 % en 2024 dans le privé, l\'indicateur qui s\'approche le plus d\'une mesure de la discrimination salariale. L\'écart global est bien plus grand (21,8 %), car les femmes travaillent plus souvent à temps partiel et occupent moins souvent les postes les mieux payés : elles détiennent 42 % des postes salariés du privé, mais seulement 24 % du 1 % des postes les mieux rémunérés. L\'écart global se réduit lentement.',
+    source: {
+      nom: 'Insee Focus n° 377 (février 2026)',
+      url: 'https://www.insee.fr/fr/statistiques/8743657',
+    },
+    quiz: {
+      question: 'À emploi égal dans le même établissement, quel est l\'écart de salaire entre femmes et hommes (2024) ?',
+      choix: ['0 %', '3,6 %', '14 %', '22 %'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'emplois-vacants',
+    theme: 'emploi',
+    ideeRecue: 'Il y a assez d\'emplois vacants pour tous les chômeurs.',
+    verdict: 'faux',
+    chiffre: {
+      valeur: '458 000',
+      legende: 'emplois vacants au 2e trimestre 2026, pour 2,7 millions de chômeurs.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: '',
+      items: [
+        { label: 'Chômeurs (au sens du BIT)', valeur: 2700000 },
+        { label: 'Emplois vacants', valeur: 458000, accent: true },
+      ],
+    },
+    explication:
+      'On compte environ six chômeurs pour un emploi vacant. Même si tous les postes vacants étaient pourvus par des chômeurs, plus de deux millions resteraient sans emploi. Les difficultés de recrutement restent pourtant réelles dans certains métiers et territoires. Le nombre d\'emplois vacants a nettement baissé depuis son pic de fin 2022.',
+    source: {
+      nom: 'Unédic, « Comprendre les emplois vacants » (octobre 2026), d\'après la Dares ; chômage : Insee',
+      url: 'https://www.unedic.org/publications/comprendre-les-emplois-vacants-les-offres-non-pourvues-les-tensions-octobre-2026',
+    },
+    quiz: {
+      question: 'Combien d\'emplois étaient vacants en France au 2e trimestre 2026 ?',
+      choix: ['Environ 45 000', 'Environ 460 000', 'Environ 2,7 millions', 'Environ 6 millions'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'etrangers-mis-en-cause',
+    theme: 'securite',
+    ideeRecue: 'Les étrangers sont surreprésentés parmi les personnes mises en cause par la police.',
+    verdict: 'vrai',
+    chiffre: {
+      valeur: '37 %',
+      legende: 'des personnes mises en cause pour cambriolage en 2024 sont étrangères, alors que les étrangers représentent 8 % des habitants.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' %',
+      max: 100,
+      items: [
+        { label: 'Cambriolages', valeur: 37 },
+        { label: 'Trafic de stupéfiants', valeur: 22 },
+        { label: 'Homicides', valeur: 18 },
+        { label: 'Viols et tentatives', valeur: 14 },
+        { label: 'Part des étrangers dans la population', valeur: 8, accent: true },
+      ],
+    },
+    explication:
+      'La surreprésentation est nette, mais très variable selon les infractions : forte pour les vols et cambriolages, moindre pour les violences sexuelles. Une personne « mise en cause » est soupçonnée par la police ou la gendarmerie, pas forcément condamnée. Ces comparaisons brutes ne tiennent pas compte de l\'âge et du sexe, alors que les personnes mises en cause sont en majorité des hommes jeunes. Le service statistique précise aussi que les personnes ayant plusieurs nationalités ne sont pas identifiées et que les données ne couvrent pas toutes les infractions.',
+    source: {
+      nom: 'Ministère de l\'Intérieur (SSMSI), réponse à la question écrite n° 9474 (Assemblée nationale)',
+      url: 'https://questions.assemblee-nationale.fr/q17/17-9474QE.htm',
+    },
+    quiz: {
+      question: 'Quelle part des personnes mises en cause pour cambriolage en 2024 étaient étrangères ?',
+      choix: ['8 %', '17 %', '37 %', '64 %'],
+      reponse: 2,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'niveau-de-vie-retraites',
+    theme: 'retraites',
+    ideeRecue: 'Les retraités vivent mieux que le reste des Français.',
+    verdict: 'nuance',
+    chiffre: {
+      valeur: '26 830 €',
+      legende: 'de niveau de vie médian par an pour les retraités en 2024, contre 26 740 € pour l\'ensemble de la population.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' €',
+      items: [
+        { label: 'Retraités', valeur: 26830, accent: true },
+        { label: 'Ensemble de la population', valeur: 26740 },
+      ],
+    },
+    explication:
+      'Le niveau de vie médian des retraités est quasiment le même que celui de l\'ensemble des Français. L\'écart devient plus favorable aux retraités si l\'on tient compte du fait que beaucoup sont propriétaires de leur logement et n\'ont plus de loyer à payer. Mais cette médiane cache de fortes inégalités entre retraités. Le Conseil d\'orientation des retraites prévoit que le niveau de vie des retraités, rapporté à celui de l\'ensemble de la population, baissera dans les prochaines décennies.',
+    source: {
+      nom: 'Insee, niveau de vie selon le statut d\'activité (données 1996-2024)',
+      url: 'https://www.insee.fr/fr/statistiques/2415628',
+    },
+    quiz: {
+      question: 'Quel est le niveau de vie médian annuel des retraités en 2024, face à 26 740 € pour l\'ensemble de la population ?',
+      choix: ['19 400 €', '26 830 €', '33 900 €', '41 200 €'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'arrets-maladie',
+    theme: 'sante',
+    ideeRecue: 'Les arrêts maladie explosent.',
+    verdict: 'nuance',
+    chiffre: {
+      valeur: '11,3 Md€',
+      legende: 'd\'indemnités journalières maladie en 2025, contre 6,8 milliards en 2014.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' Md€',
+      items: [
+        { label: '2014', valeur: 6.8 },
+        { label: '2025', valeur: 11.3, accent: true },
+      ],
+    },
+    explication:
+      'Hors Covid et épidémies de grippe, les dépenses d\'arrêts maladie ont été multipliées par 1,7 en onze ans. Une partie s\'explique mécaniquement : les indemnités suivent les salaires, et les actifs sont plus âgés, donc plus souvent malades. Depuis avril 2025, l\'indemnisation est plafonnée plus bas, et la hausse devrait presque s\'arrêter en 2026 (+0,7 % prévu), même si les arrêts de plus de trois mois continuent d\'augmenter.',
+    source: {
+      nom: 'Sécurité sociale, rapports d\'évaluation des politiques (dynamique des indemnités journalières)',
+      url: 'https://evaluation.securite-sociale.fr/home/maladie/2121-dynamique-des-indemnites-jo.html',
+    },
+    quiz: {
+      question: 'Combien l\'Assurance maladie a-t-elle versé d\'indemnités journalières maladie en 2025 ?',
+      choix: ['1,1 Md€', '11,3 Md€', '56 Md€', '113 Md€'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'delinquance-partout',
+    theme: 'securite',
+    ideeRecue: 'La délinquance augmente dans tous les domaines.',
+    verdict: 'faux',
+    chiffre: {
+      valeur: '+8 %',
+      legende: 'de violences sexuelles enregistrées en 2025, alors que les cambriolages reculent de 3 %.',
+    },
+    visualisation: {
+      type: 'evolution',
+      unite: ' %',
+      items: [
+        { label: 'Violences sexuelles', valeur: 8, accent: true },
+        { label: 'Violences physiques', valeur: 5, accent: true },
+        { label: 'Cambriolages', valeur: -3 },
+        { label: 'Vols avec armes', valeur: -7 },
+        { label: 'Vols de véhicules', valeur: -9 },
+      ],
+    },
+    explication:
+      'Les tendances divergent : les violences contre les personnes augmentent, alors que les vols et cambriolages reculent. Les homicides sont stables. Ces chiffres portent sur les faits enregistrés par la police et la gendarmerie : une hausse peut aussi venir du fait que les victimes portent plainte plus souvent, notamment pour les violences sexuelles et intrafamiliales.',
+    source: {
+      nom: 'SSMSI (ministère de l\'Intérieur), Insécurité et délinquance en 2025',
+      url: 'https://www.interieur.gouv.fr/Interstats/Actualites/Insecurite-et-delinquance-en-2025-bilan-statistique-et-atlas-departemental',
+    },
+    quiz: {
+      question: 'Comment ont évolué les cambriolages enregistrés en France en 2025 ?',
+      choix: ['−30 %', '−3 %', '+15 %', '+40 %'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'feminicides',
+    theme: 'justice',
+    ideeRecue: 'Les féminicides conjugaux sont en hausse.',
+    verdict: 'vrai',
+    chiffre: {
+      valeur: '111',
+      legende: 'femmes tuées par leur conjoint ou ex-conjoint en 2025, contre 107 en 2024 et 96 en 2023.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' femmes',
+      items: [
+        { label: '2023', valeur: 96 },
+        { label: '2024', valeur: 107 },
+        { label: '2025', valeur: 111, accent: true },
+      ],
+    },
+    explication:
+      'C\'est la deuxième hausse consécutive : une femme est tuée par son conjoint ou ex-conjoint environ tous les trois jours. Les femmes représentent 82 % des 136 personnes tuées au sein du couple en 2025. Parmi les femmes tuées, 37 % avaient déjà subi des violences de leur conjoint. Les associations, qui comptent selon une autre méthode, recensent davantage de féminicides que le ministère.',
+    source: {
+      nom: 'Ministère de l\'Intérieur, étude nationale sur les morts violentes au sein du couple 2025 (reprise par Euronews)',
+      url: 'https://fr.euronews.com/2026/10/15/violences-conjugales-en-france-111-femmes-tuees-par-leur-conjoint-ou-ex-conjoint-en-2025-e',
+    },
+    quiz: {
+      question: 'Combien de femmes ont été tuées par leur conjoint ou ex-conjoint en France en 2025 ?',
+      choix: ['Environ 30', 'Environ 110', 'Environ 400', 'Environ 1 100'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
 ];
