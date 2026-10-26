@@ -14,6 +14,8 @@
  *  publieLe      (facultatif) date ISO de mise en ligne : la carte affiche « Nouveau » pendant
  *                quelques jours (config.dureeBadges) et passe en tête de liste
  *  questionLecteur (facultatif) true si la carte répond à une question reçue par la boîte à questions
+ *  quiz          { question, choix, reponse } : question à choix multiples sur le chiffre clé ;
+ *                `reponse` est la position de la bonne réponse dans `choix` (0 pour la première)
  */
 export const faits = [
   {
@@ -40,6 +42,11 @@ export const faits = [
     source: {
       nom: 'Insee, population selon le lieu de naissance et la nationalité',
       url: 'https://www.insee.fr/fr/statistiques/2865118',
+    },
+    quiz: {
+      question: 'Quelle part de la population vivant en France est de nationalité étrangère (2025) ?',
+      choix: ['3 %', '9 %', '18 %', '25 %'],
+      reponse: 1,
     },
     verifieLe: '2026-10-26',
   },
@@ -68,13 +75,18 @@ export const faits = [
       nom: 'Insee, d\'après Eurostat (dette publique dans l\'UE)',
       url: 'https://www.insee.fr/fr/statistiques/2830286',
     },
+    quiz: {
+      question: 'Quel rang occupe la France dans l\'UE pour la dette publique rapportée au PIB (2025) ?',
+      choix: ['1er', '2e', '3e', '10e'],
+      reponse: 2,
+    },
     verifieLe: '2026-10-26',
   },
   {
     id: 'homicides',
     theme: 'securite',
     ideeRecue: 'Les homicides explosent en France.',
-    verdict: 'nuance',
+    verdict: 'faux',
     chiffre: {
       valeur: '975',
       legende: 'victimes d\'homicide enregistrées en 2025, un nombre stable par rapport à 2024.',
@@ -93,13 +105,18 @@ export const faits = [
       nom: 'SSMSI, Insécurité et délinquance en 2025',
       url: 'https://www.interieur.gouv.fr/Interstats/Actualites/Insecurite-et-delinquance-en-2025-bilan-statistique-et-atlas-departemental',
     },
+    quiz: {
+      question: 'Combien de victimes d\'homicide ont été enregistrées en France en 2025 ?',
+      choix: ['Environ 300', 'Environ 1 000', 'Environ 5 000', 'Environ 10 000'],
+      reponse: 1,
+    },
     verifieLe: '2026-10-26',
   },
   {
     id: 'pays-le-plus-taxe',
     theme: 'fiscalite',
     ideeRecue: 'La France est le pays le plus taxé d\'Europe.',
-    verdict: 'nuance',
+    verdict: 'faux',
     chiffre: {
       valeur: '45,3 %',
       legende: 'du PIB en prélèvements obligatoires en 2024 : 2e rang de l\'UE, juste derrière le Danemark.',
@@ -115,10 +132,15 @@ export const faits = [
       ],
     },
     explication:
-      'Selon Eurostat, la France se situe en 2024 juste derrière le Danemark et devant la Belgique, environ 5 points au-dessus de la moyenne de l\'UE. Les écarts entre les trois premiers pays sont faibles. L\'Insee publie un taux plus bas pour la France (43,6 % en 2025, provisoire), car sa méthode exclut les cotisations sociales dites « imputées ».',
+      'Selon Eurostat, la France n\'est pas première : en 2024, elle se situe juste derrière le Danemark et devant la Belgique. Les écarts entre ces trois pays sont faibles, et la France reste environ 5 points au-dessus de la moyenne de l\'UE. L\'Insee publie un taux plus bas pour la France (43,6 % en 2025, provisoire), car sa méthode exclut les cotisations sociales dites « imputées ».',
     source: {
       nom: 'Insee, d\'après Eurostat (prélèvements obligatoires dans l\'UE)',
       url: 'https://www.insee.fr/fr/statistiques/2381410',
+    },
+    quiz: {
+      question: 'Quel rang occupe la France dans l\'UE pour les prélèvements obligatoires (2024) ?',
+      choix: ['1er', '2e', '6e', '12e'],
+      reponse: 1,
     },
     verifieLe: '2026-10-26',
   },
@@ -146,6 +168,11 @@ export const faits = [
     source: {
       nom: 'France Stratégie, Comité d\'évaluation des réformes de la fiscalité du capital, 4e rapport (2023)',
       url: 'https://www.strategie-plan.gouv.fr/files/files/Publications/Rapport/fs-2023-rapport-isf-quatrieme_rapport_complet_17octobre_2.pdf',
+    },
+    quiz: {
+      question: 'Entre 2011 et 2016, combien de foyers soumis à l\'ISF partaient chaque année à l\'étranger, en moyenne ?',
+      choix: ['Environ 50', 'Environ 200', 'Environ 950', 'Environ 20 000'],
+      reponse: 2,
     },
     verifieLe: '2026-10-26',
     publieLe: '2026-10-26',
@@ -175,6 +202,11 @@ export const faits = [
       nom: 'Insee, Informations rapides, chômage au 2e trimestre 2026',
       url: 'https://www.insee.fr/fr/statistiques/9032359',
     },
+    quiz: {
+      question: 'Quel était le taux de chômage en France au 2e trimestre 2026 ?',
+      choix: ['5,1 %', '8,3 %', '11,9 %', '14,5 %'],
+      reponse: 1,
+    },
     verifieLe: '2026-10-26',
   },
   {
@@ -202,6 +234,11 @@ export const faits = [
       nom: 'OCDE, Panorama des pensions 2025 (âge effectif de sortie du marché du travail)',
       url: 'https://www.oecd.org/fr/publications/panorama-des-pensions-2025_58bd74b1-fr/full-report/effective-age-of-labour-market-exit_fd1212b7.html',
     },
+    quiz: {
+      question: 'À quel âge, en moyenne, les hommes quittent-ils le marché du travail en France (2024) ?',
+      choix: ['59,1 ans', '61,9 ans', '64,7 ans', '66,3 ans'],
+      reponse: 1,
+    },
     verifieLe: '2026-10-26',
   },
   {
@@ -228,6 +265,11 @@ export const faits = [
       nom: 'Ministère de la Justice, statistique mensuelle de la population détenue',
       url: 'https://www.justice.gouv.fr/sites/default/files/2026-08/mesure_mensuelle_01082026.pdf',
     },
+    quiz: {
+      question: 'Combien y a-t-il de détenus pour 100 places en prison en France (août 2026) ?',
+      choix: ['Environ 95', 'Environ 110', 'Environ 142', 'Environ 200'],
+      reponse: 2,
+    },
     verifieLe: '2026-10-26',
   },
   {
@@ -252,6 +294,11 @@ export const faits = [
     source: {
       nom: 'SDES, émissions de gaz à effet de serre et empreinte carbone de la France en 2024',
       url: 'https://www.statistiques.developpement-durable.gouv.fr/emissions-de-gaz-effet-de-serre-et-empreinte-carbone-de-la-france-en-2024-une-baisse-plus-faible',
+    },
+    quiz: {
+      question: 'Quelle part des émissions mondiales de gaz à effet de serre est émise sur le territoire français ?',
+      choix: ['Environ 0,7 %', 'Environ 3 %', 'Environ 7 %', 'Environ 12 %'],
+      reponse: 0,
     },
     verifieLe: '2026-10-26',
   },
@@ -280,6 +327,11 @@ export const faits = [
       nom: 'EDF, d\'après le Bilan électrique 2025 de RTE',
       url: 'https://www.edf.fr/groupe-edf/comprendre/production/thermique/thermique-a-flamme-en-chiffres',
     },
+    quiz: {
+      question: 'Quelle part de l\'électricité produite en France vient du gaz, du fioul et du charbon (2025) ?',
+      choix: ['3,4 %', '15 %', '40 %', '60 %'],
+      reponse: 0,
+    },
     verifieLe: '2026-10-26',
   },
   {
@@ -306,6 +358,11 @@ export const faits = [
     source: {
       nom: 'Agreste (ministère de l\'Agriculture), commerce extérieur agroalimentaire 2025',
       url: 'https://agreste.agriculture.gouv.fr/agreste-web/download/publication/publie/IraCex2617/2026_17inforapcommerceext.pdf',
+    },
+    quiz: {
+      question: 'Quel a été l\'excédent commercial agroalimentaire de la France en 2025 ?',
+      choix: ['181 millions d\'euros', '4,9 milliards d\'euros', '10 milliards d\'euros', '25 milliards d\'euros'],
+      reponse: 0,
     },
     verifieLe: '2026-10-26',
   },
@@ -334,6 +391,11 @@ export const faits = [
       nom: 'DREES, Les dépenses de santé en 2024 (édition 2025)',
       url: 'https://drees.solidarites-sante.gouv.fr/publications-communique-de-presse-infographie-documents-de-reference/250930-Panorama-d%C3%A9penses-de-sant%C3%A9',
     },
+    quiz: {
+      question: 'Quelle part de son PIB la France consacre-t-elle à la santé (2024) ?',
+      choix: ['4,5 %', '7,8 %', '11,4 %', '17,2 %'],
+      reponse: 2,
+    },
     verifieLe: '2026-10-26',
   },
   {
@@ -358,6 +420,11 @@ export const faits = [
     source: {
       nom: 'DEPP, Note d\'information n° 24.48 (TIMSS 2023 en 4e)',
       url: 'https://www.education.gouv.fr/depp/timss-2023-en-quatrieme-pour-les-mathematiques-des-resultats-stables-en-france-et-un-accroissement-452619',
+    },
+    quiz: {
+      question: 'Quel score ont obtenu les élèves français de 4e en maths (TIMSS 2023), face à une moyenne UE et OCDE de 507 points ?',
+      choix: ['479', '507', '532', '561'],
+      reponse: 0,
     },
     verifieLe: '2026-10-26',
   },
@@ -384,6 +451,11 @@ export const faits = [
     source: {
       nom: 'Insee Focus, le parc de logements au 1er janvier 2026',
       url: 'https://www.insee.fr/fr/statistiques/9055697',
+    },
+    quiz: {
+      question: 'Combien de logements vacants compte la France au 1er janvier 2026 ?',
+      choix: ['300 000', '900 000', '2,9 millions', '8 millions'],
+      reponse: 2,
     },
     verifieLe: '2026-10-26',
   },
@@ -413,6 +485,11 @@ export const faits = [
       nom: 'SDES, Chiffres clés des transports (édition 2026)',
       url: 'https://www.statistiques.developpement-durable.gouv.fr/chiffres-cles-des-transports-edition-2026',
     },
+    quiz: {
+      question: 'Quelle part des émissions de gaz à effet de serre des transports vient des voitures particulières ?',
+      choix: ['13 %', '28 %', '53 %', '81 %'],
+      reponse: 2,
+    },
     verifieLe: '2026-10-26',
   },
   {
@@ -440,13 +517,18 @@ export const faits = [
       nom: 'ADEME et Arcep, impacts environnementaux du numérique en France',
       url: 'https://ecoresponsable.numerique.gouv.fr/docs/2024/etude-ademe-impacts-environnementaux-numerique.pdf',
     },
+    quiz: {
+      question: 'Quelle part de l\'empreinte carbone de la France vient du numérique ?',
+      choix: ['0,1 %', '4,4 %', '15 %', '30 %'],
+      reponse: 1,
+    },
     verifieLe: '2026-10-26',
   },
   {
     id: 'cinema-deserte',
     theme: 'culture',
     ideeRecue: 'Les Français ont déserté les salles de cinéma.',
-    verdict: 'nuance',
+    verdict: 'faux',
     chiffre: {
       valeur: '156,2 millions',
       legende: 'd\'entrées en salles en 2025, en recul de 14 % sur un an.',
@@ -461,10 +543,15 @@ export const faits = [
       ],
     },
     explication:
-      'La fréquentation a nettement baissé en 2025, faute de grand succès français comme en 2024, et revient au niveau du début des années 2000. La France reste cependant de loin le premier marché du cinéma en Europe. La part des films français est tombée à 37,9 %, contre 44,7 % en 2024.',
+      'Avec 156 millions d\'entrées, on est loin d\'un abandon : la France reste de loin le premier marché du cinéma en Europe. La fréquentation a pourtant nettement baissé en 2025, faute de grand succès français comme en 2024, et revient au niveau du début des années 2000. La part des films français est tombée à 37,9 %, contre 44,7 % en 2024.',
     source: {
       nom: 'CNC, Bilan 2025',
       url: 'https://www.cnc.fr/professionnels/etudes-et-rapports/bilans/bilan-2025-du-cnc_2589800',
+    },
+    quiz: {
+      question: 'Combien d\'entrées les cinémas français ont-ils vendues en 2025 ?',
+      choix: ['16 millions', '56 millions', '156 millions', '356 millions'],
+      reponse: 2,
     },
     verifieLe: '2026-10-26',
   },
@@ -493,13 +580,18 @@ export const faits = [
       nom: 'INJEP, Baromètre national des pratiques sportives 2025',
       url: 'https://www.sports.gouv.fr/sport-en-france-une-progression-continue-depuis-2018-boostee-par-les-jeux-de-paris-2024-10055',
     },
+    quiz: {
+      question: 'Quelle part des 15 ans ou plus pratique une activité sportive régulière en 2025 ?',
+      choix: ['21 %', '41 %', '61 %', '81 %'],
+      reponse: 2,
+    },
     verifieLe: '2026-10-26',
   },
   {
     id: 'participation-elections',
     theme: 'institutions',
     ideeRecue: 'Les Français votent de moins en moins, élection après élection.',
-    verdict: 'nuance',
+    verdict: 'faux',
     chiffre: {
       valeur: '57,2 %',
       legende: 'de participation au 1er tour des municipales de mars 2026, contre 63,6 % en 2014.',
@@ -519,6 +611,11 @@ export const faits = [
     source: {
       nom: 'Ministère de l\'Intérieur, municipales 2026 : bilan chiffré des deux tours',
       url: 'https://www.interieur.gouv.fr/actualites/communiques-de-presse/elections-municipales-et-communautaires-2026-bilan-chiffre-du-premier-et-du-second-tour',
+    },
+    quiz: {
+      question: 'Quelle a été la participation au 1er tour des municipales de mars 2026 ?',
+      choix: ['38,4 %', '57,2 %', '71,9 %', '83,5 %'],
+      reponse: 1,
     },
     verifieLe: '2026-10-26',
   },
@@ -546,6 +643,11 @@ export const faits = [
       nom: 'OTAN, rapport annuel 2025 du Secrétaire général',
       url: 'https://nato.int/content/dam/nato/webready/documents/publications-and-reports/annual-reports/sgar25-fr.pdf',
     },
+    quiz: {
+      question: 'Quelle part de son PIB la France a-t-elle consacrée à la défense en 2025, selon l\'OTAN ?',
+      choix: ['0,9 %', '1,4 %', '2,05 %', '3,5 %'],
+      reponse: 2,
+    },
     verifieLe: '2026-10-26',
   },
   {
@@ -571,6 +673,11 @@ export const faits = [
     source: {
       nom: 'OCDE, profil de coopération au développement de la France',
       url: 'https://www.oecd.org/fr/publications/2025/06/development-co-operation-profiles_02ffa45c/france_c200dc7f.html',
+    },
+    quiz: {
+      question: 'Quelle part de son revenu national brut la France a-t-elle consacrée à l\'aide au développement en 2025 ?',
+      choix: ['0,42 %', '1,9 %', '4,2 %', '7 %'],
+      reponse: 0,
     },
     verifieLe: '2026-10-26',
   },

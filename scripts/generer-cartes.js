@@ -193,6 +193,13 @@ function pageCarte(fait) {
 
 // ---------- Génération ----------
 
+// Une question de quiz mal formée bloquerait le jeu : on s'arrête avant de publier.
+for (const { id, quiz } of faits) {
+  if (quiz && !(Array.isArray(quiz.choix) && quiz.choix.length >= 2 && quiz.choix[quiz.reponse] !== undefined && quiz.question)) {
+    throw new Error(`Carte « ${id} » : le champ quiz doit avoir une question, au moins 2 choix et une réponse valide (position dans choix, 0 pour la première).`);
+  }
+}
+
 await rm('cartes', { recursive: true, force: true });
 await mkdir('cartes/images', { recursive: true });
 await mkdir('images', { recursive: true });
