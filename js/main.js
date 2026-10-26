@@ -4,6 +4,7 @@ import { createTabs } from './components/tabs.js';
 import { createTile } from './components/tile.js';
 import { createDetail } from './components/detail.js';
 import { createQuestions } from './components/questions.js';
+import { createBandeauInstallation } from './components/installation.js';
 
 const parId = Object.fromEntries(themes.map((t) => [t.id, t]));
 const grille = document.getElementById('grille');
@@ -12,6 +13,7 @@ const vide = document.getElementById('vide');
 const detail = createDetail(document.getElementById('detail'));
 const questions = createQuestions(document.getElementById('questions'), themes);
 document.getElementById('ouvrir-questions').addEventListener('click', questions.ouvrir);
+createBandeauInstallation(document.getElementById('bandeau-installation'));
 
 const comptes = { tous: faits.length };
 for (const f of faits) {
