@@ -1,7 +1,8 @@
 import { el, formatDate } from '../utils/dom.js';
 import { renderVisualisation } from './visualisation.js';
+import { config } from '../config.js';
 
-const VERDICTS = {
+export const VERDICTS = {
   faux:   { label: 'Faux',      classes: 'bg-rose-950 text-rose-200' },
   nuance: { label: 'À nuancer', classes: 'bg-amber-950 text-amber-200' },
   vrai:   { label: 'Vrai',      classes: 'bg-emerald-950 text-emerald-200' },
@@ -45,9 +46,12 @@ export function createDetail(dialog) {
   };
 }
 
-/** Partage le lien direct de la carte : menu de partage du téléphone, sinon copie dans le presse-papiers. */
-async function partagerCarte(fait, bouton) {
-  const url = new URL(`#${fait.id}`, location.href).href;
+/**
+ * Partage la page de la carte (cartes/<id>.html, générée par npm run cartes) : c'est elle qui donne
+ * l'aperçu dans les messageries. Menu de partage du téléphone, sinon copie dans le presse-papiers.
+ */
+export async function partagerCarte(fait, bouton) {
+  const url = `${config.site}cartes/${fait.id}.html`;
   const verdict = VERDICTS[fait.verdict] ?? VERDICTS.nuance;
   const texte = `« ${fait.ideeRecue} » ${verdict.label} : ${fait.chiffre.valeur} ${fait.chiffre.legende}`;
   if (navigator.share) {
