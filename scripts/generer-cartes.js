@@ -177,14 +177,11 @@ function pageCarte(fait) {
     </article>
 
     <section class="mt-6 flex flex-col gap-2" aria-labelledby="lire-aussi">
-      <h2 id="lire-aussi" class="text-sm font-semibold text-stone-300">À lire aussi</h2>${cartesLiees(fait, faits).map((f) => {
-        const v = VERDICTS[f.verdict] ?? VERDICTS.nuance;
-        return `
-      <a href="${f.id}.html" class="flex items-start justify-between gap-3 rounded-xl border border-ink-600 bg-ink-800 p-3 text-sm text-stone-200 hover:border-brass-500">
+      <h2 id="lire-aussi" class="text-sm font-semibold text-stone-300">À lire aussi</h2>${cartesLiees(fait, faits).map((f) => `
+      <a href="${f.id}.html" class="flex flex-col gap-1 rounded-xl border border-ink-600 bg-ink-800 p-3 text-sm text-stone-200 hover:border-brass-500">
+        <span class="text-xs text-stone-400">${echapper(parId[f.theme]?.nom ?? '')}</span>
         <span class="font-medium leading-snug">${echapper(f.ideeRecue)}</span>
-        <span class="shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold ${v.classes}">${echapper(v.label)}</span>
-      </a>`;
-      }).join('')}
+      </a>`).join('')}
     </section>
 
     <nav class="mt-6 flex flex-col gap-3 text-sm">

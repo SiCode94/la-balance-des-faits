@@ -3,6 +3,7 @@ import { renderVisualisation } from './visualisation.js';
 import { config } from '../config.js';
 import { badges } from '../utils/badges.js';
 import { cartesLiees } from '../utils/liees.js';
+import { themes } from '../data/themes.js';
 import { compter } from '../statistiques.js';
 
 export const VERDICTS = {
@@ -23,14 +24,14 @@ export function createDetail(dialog, faits, { onOuvrir, onSignaler } = {}) {
     if (!liees.length || !onOuvrir) return el('div', { hidden: true });
     return el('div', { class: 'flex flex-col gap-2' }, [
       el('p', { class: 'text-sm font-semibold text-stone-300' }, 'À lire aussi'),
+      // Sans le verdict : on garde la surprise pour la carte elle-même.
       ...liees.map((f) => {
-        const v = VERDICTS[f.verdict] ?? VERDICTS.nuance;
         const b = el('button', {
           type: 'button',
-          class: 'flex items-start justify-between gap-3 rounded-xl border border-ink-600 bg-ink-900 p-3 text-left text-sm text-stone-200 hover:border-brass-500',
+          class: 'flex flex-col gap-1 rounded-xl border border-ink-600 bg-ink-900 p-3 text-left text-sm text-stone-200 hover:border-brass-500',
         }, [
+          el('span', { class: 'text-xs text-stone-400' }, themes.find((t) => t.id === f.theme)?.nom ?? ''),
           el('span', { class: 'font-medium leading-snug' }, f.ideeRecue),
-          el('span', { class: `shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold ${v.classes}` }, v.label),
         ]);
         b.addEventListener('click', () => onOuvrir(f));
         return b;
