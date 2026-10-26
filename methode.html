@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Notre méthode · La Balance des Faits</title>
+  <meta name="description" content="Comment La Balance des Faits choisit ses sources, attribue ses verdicts et corrige ses erreurs.">
+  <meta name="theme-color" content="#14161A">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&display=swap" rel="stylesheet">
+  <!-- MVP : Tailwind via CDN. Pour la production, passer à la CLI Tailwind. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/tailwind.config.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-ink-900 text-stone-200 antialiased">
+
+  <header class="mx-auto flex max-w-3xl items-center gap-4 px-5 pb-6 pt-8">
+    <a href="./" class="shrink-0" aria-label="Retour à l'accueil">
+      <img src="icons/logo.svg" alt="" width="64" height="64" class="h-14 w-14 rounded-xl sm:h-16 sm:w-16">
+    </a>
+    <div>
+      <p class="text-sm"><a href="./" class="text-brass-400 underline underline-offset-4">La Balance des Faits</a></p>
+      <h1 class="font-display text-2xl font-bold tracking-tight text-stone-50 sm:text-4xl">Notre méthode</h1>
+    </div>
+  </header>
+
+  <main class="mx-auto flex max-w-3xl flex-col gap-10 px-5 pb-12 pt-4 text-[15px] leading-relaxed text-stone-300">
+
+    <section class="flex flex-col gap-3">
+      <h2 class="font-display text-xl font-bold text-stone-50">Le principe</h2>
+      <p>
+        Chaque carte part d'une idée reçue, une affirmation qu'on entend souvent dans le débat public,
+        et la confronte aux chiffres. Elle donne un verdict, le chiffre clé, une courte explication
+        et un lien vers la source. Le but n'est pas de dire quoi penser, mais de donner à chacun
+        les mêmes faits pour en débattre.
+      </p>
+    </section>
+
+    <section class="flex flex-col gap-3">
+      <h2 class="font-display text-xl font-bold text-stone-50">Les sources</h2>
+      <p>Nous privilégions, dans cet ordre :</p>
+      <ul class="list-disc space-y-1.5 pl-5">
+        <li>la statistique publique française : l'Insee et les services statistiques des ministères (DREES, DEPP, SDES, SSMSI…) ;</li>
+        <li>les institutions européennes et internationales : Eurostat, l'OCDE, l'OTAN… ;</li>
+        <li>les administrations et opérateurs publics, comme RTE pour l'électricité ou le CNC pour le cinéma.</li>
+      </ul>
+      <p>
+        Quand un chiffre n'est accessible qu'à travers une reprise (un article ou une note qui cite
+        l'organisme), la source l'indique, par exemple « EDF, d'après le Bilan électrique de RTE ».
+        Nous ne citons ni sondages d'opinion, ni think tanks partisans, ni chiffres sans origine traçable.
+      </p>
+    </section>
+
+    <section class="flex flex-col gap-3">
+      <h2 class="font-display text-xl font-bold text-stone-50">Les verdicts</h2>
+      <dl class="flex flex-col gap-4">
+        <div class="flex flex-col gap-1.5">
+          <dt><span class="rounded-full bg-rose-950 px-3 py-1 text-sm font-semibold text-rose-200">Faux</span></dt>
+          <dd>Les chiffres contredisent l'affirmation telle qu'elle est formulée.</dd>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <dt><span class="rounded-full bg-amber-950 px-3 py-1 text-sm font-semibold text-amber-200">À nuancer</span></dt>
+          <dd>L'affirmation contient une part de vrai, mais elle exagère, simplifie ou oublie un élément important.</dd>
+        </div>
+        <div class="flex flex-col gap-1.5">
+          <dt><span class="rounded-full bg-emerald-950 px-3 py-1 text-sm font-semibold text-emerald-200">Vrai</span></dt>
+          <dd>Les chiffres confirment l'affirmation. Le contexte reste utile pour la comprendre.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="flex flex-col gap-3">
+      <h2 class="font-display text-xl font-bold text-stone-50">Le choix des chiffres</h2>
+      <ul class="list-disc space-y-1.5 pl-5">
+        <li>Nous retenons la donnée la plus récente publiée, en précisant si elle est provisoire.</li>
+        <li>Nous comparons ce qui est comparable : même indicateur, même définition, même période.</li>
+        <li>Quand nous faisons un calcul nous-mêmes (une part, un écart), l'explication le dit.</li>
+        <li>Chaque carte porte une date de vérification. Les données évoluent : la source fait toujours foi.</li>
+      </ul>
+    </section>
+
+    <section class="flex flex-col gap-3">
+      <h2 class="font-display text-xl font-bold text-stone-50">Erreurs et suggestions</h2>
+      <p>
+        Une erreur, un chiffre dépassé, une idée reçue à vérifier ? Écrivez-nous avec la
+        <a href="./#question" class="font-medium text-brass-400 underline underline-offset-4">boîte à questions</a>.
+        Les corrections sont faites rapidement et la date de vérification de la carte est mise à jour.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="mx-auto max-w-3xl px-5 pb-12 text-sm">
+    <a href="./" class="font-medium text-brass-400 underline underline-offset-4">← Retour aux cartes</a>
+  </footer>
+</body>
+</html>
