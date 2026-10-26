@@ -31,8 +31,14 @@
 
   <div id="bandeau-installation" hidden class="border-b border-brass-500/40 bg-ink-800"></div>
 
-  <header class="mx-auto flex max-w-5xl items-center gap-4 px-5 pb-6 pt-8">
-    <img src="icons/logo.svg" alt="" width="64" height="64" class="h-14 w-14 rounded-xl sm:h-16 sm:w-16">
+  <header class="mx-auto flex max-w-5xl items-center gap-3 px-5 pb-6 pt-8 sm:gap-4">
+    <button id="ouvrir-menu" type="button" aria-label="Ouvrir le menu" aria-haspopup="dialog"
+      class="-ml-2 shrink-0 self-start rounded-lg p-2 text-stone-200 hover:bg-ink-700 sm:self-center">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+    </button>
+    <img src="icons/logo.svg" alt="" width="64" height="64" class="hidden h-14 w-14 rounded-xl sm:block sm:h-16 sm:w-16">
     <div class="flex-1">
       <h1 class="font-display text-2xl font-bold tracking-tight text-stone-50 sm:text-4xl">La Balance des Faits</h1>
       <p class="mt-1 max-w-xl text-sm leading-relaxed text-stone-400 sm:text-base">
@@ -66,6 +72,9 @@
 
   <dialog id="quiz" aria-labelledby="quiz-titre"
     class="m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-2xl border border-brass-500/60 bg-ink-800 p-0 text-stone-200"></dialog>
+
+  <dialog id="menu" aria-labelledby="menu-titre"
+    class="border-r border-brass-500/60 bg-ink-800 text-stone-200"></dialog>
 
   <dialog id="questions" aria-labelledby="questions-titre"
     class="border-r border-brass-500/60 bg-ink-800 text-stone-200"></dialog>

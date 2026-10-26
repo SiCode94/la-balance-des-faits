@@ -7,9 +7,10 @@ import { createQuestions } from './components/questions.js';
 import { createQuiz, partieLibre } from './components/quiz.js';
 import { createQuotidien, partieDefi, questionsDuDefi } from './components/defi.js';
 import { estPubliee, jourDeJeu } from './utils/calendrier.js';
-import { serieAffichee } from './utils/progression.js';
+import { record, serieAffichee } from './utils/progression.js';
 import { createBandeauInstallation } from './components/installation.js';
 import { createFiltres } from './components/filtres.js';
+import { createMenu } from './components/menu.js';
 import { correspond } from './utils/recherche.js';
 import { el } from './utils/dom.js';
 import { estRecente } from './utils/badges.js';
@@ -49,6 +50,47 @@ createBandeauInstallation(document.getElementById('bandeau-installation'));
 const quotidien = createQuotidien(document.getElementById('quotidien'), {
   jour, questions: questionsDefi, carteDuJour, prochaine, themes, ouvrirDefi, ouvrirCarte: (f) => ouvrirCarte(f), ouvrirQuizLibre,
 });
+// Menu ☰ : tout le site au même endroit.
+const menu = createMenu(document.getElementById('menu'), {
+  entete() {
+    const serie = serieAffichee(jour);
+    return el('div', { class: 'flex items-center gap-3 rounded-xl border border-brass-500/60 bg-ink-900 p-3' }, [
+      el('span', { class: 'text-3xl', 'aria-hidden': 'true' }, '🔥'),
+      el('span', { class: 'flex flex-col text-sm' }, [
+        el('span', { class: 'font-semibold text-stone-100' }, `${serie} jour${serie > 1 ? 's' : ''} d'affilée`),
+        el('span', { class: 'text-stone-400' }, `Record : ${record()} jour${record() > 1 ? 's' : ''} · jouez le défi chaque jour`),
+      ]),
+    ]);
+  },
+  rubriques: [
+    { titre: 'Jouer', entrees: [
+      { icone: '🔥', libelle: 'Défi du jour', detail: '3 questions, les mêmes pour tout le monde', action: () => ouvrirDefi() },
+      { icone: '🎯', libelle: 'Quiz libre', detail: '10 questions au hasard', action: () => ouvrirQuizLibre() },
+    ] },
+    { titre: 'Les cartes', entrees: [
+      carteDuJour && { icone: '✨', libelle: 'Carte du jour', detail: carteDuJour.ideeRecue, action: () => ouvrirCarte(carteDuJour) },
+      { icone: '🗂️', libelle: 'Toutes les cartes', detail: `${publiees.length} idées reçues vérifiées`, action: () => allerAuxCartes('tous') },
+      { icone: '🔎', libelle: 'Rechercher une carte', action: () => allerAuxCartes('tous', true) },
+    ] },
+    { titre: 'Participer', entrees: [
+      { icone: '❓', libelle: 'Poser une question', detail: 'Une idée reçue à vérifier ?', action: () => questions.ouvrir() },
+    ] },
+    { titre: 'À propos', entrees: [
+      { icone: '⚖️', libelle: 'Notre méthode', href: 'methode.html' },
+      { icone: '📝', libelle: 'Corrections', href: 'corrections.html' },
+    ] },
+  ],
+});
+document.getElementById('ouvrir-menu').addEventListener('click', () => menu.ouvrir());
+
+/** Affiche la grille (un thème ou « tous ») et la fait défiler à l'écran ; option : place le curseur dans la recherche. */
+function allerAuxCartes(id, rechercher = false) {
+  afficher(id);
+  const cible = rechercher ? document.getElementById('recherche') : titre;
+  cible.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (rechercher) document.getElementById('recherche').focus({ preventScroll: true });
+}
+
 const flamme = document.getElementById('flamme');
 flamme.addEventListener('click', ouvrirDefi);
 function majQuotidien() {

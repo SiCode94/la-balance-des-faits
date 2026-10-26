@@ -4,7 +4,7 @@ import { compter } from '../statistiques.js';
 import { partagerTexte } from '../utils/partage.js';
 import { avantOuverture, decalerJour, formatDuree, formatJour } from '../utils/calendrier.js';
 import { enregistrerReponse, record, reponsesDuJour, serieAffichee } from '../utils/progression.js';
-import { boutonPrincipal } from './quiz.js';
+import { boutonPrincipal, boutonSecondaire } from './quiz.js';
 
 export const NB_DEFI = 3;
 
@@ -123,10 +123,17 @@ export function createQuotidien(conteneur, { jour, questions, carteDuJour, proch
   }
 
   function blocQuizLibre() {
-    const jouer = el('button', { type: 'button', class: 'shrink-0 text-sm font-medium text-brass-400 underline underline-offset-4' }, 'Quiz libre');
+    const jouer = el('button', { type: 'button', class: `shrink-0 ${boutonSecondaire}` }, 'Jouer');
     jouer.addEventListener('click', ouvrirQuizLibre);
-    return el('p', { class: 'flex flex-wrap items-center gap-x-2 text-sm text-stone-400 sm:col-span-2' },
-      ['Envie de plus ?', jouer, '10 questions au hasard, autant de parties que vous voulez.']);
+    return el('section', { class: `${bloc} border-ink-600 sm:col-span-2` }, [
+      el('div', { class: 'flex items-center justify-between gap-4' }, [
+        el('div', {}, [
+          el('h2', { class: 'font-display text-lg font-bold text-stone-50' }, 'Quiz libre'),
+          el('p', { class: 'mt-0.5 text-sm text-stone-400' }, '10 questions au hasard sur toutes les cartes, autant de parties que vous voulez.'),
+        ]),
+        jouer,
+      ]),
+    ]);
   }
 
   function maj() {
