@@ -11,6 +11,9 @@
  *  explication   2 à 4 phrases, factuelles
  *  source        { nom, url } : source officielle
  *  verifieLe     date ISO de la dernière vérification
+ *
+ *  Règle : le chiffre clé de chaque carte date de 2024 ou après. Des données plus anciennes
+ *  peuvent servir de comparaison (graphique, explication), jamais de chiffre principal.
  *  publieLe      (facultatif) date ISO de mise en ligne : la carte affiche « Nouveau » pendant
  *                quelques jours (config.dureeBadges) et passe en tête de liste
  *  questionLecteur (facultatif) true si la carte répond à une question reçue par la boîte à questions
@@ -150,29 +153,29 @@ export const faits = [
     ideeRecue: 'Si on taxe les riches, ils vont quitter le pays.',
     verdict: 'nuance',
     chiffre: {
-      valeur: '950',
-      legende: 'départs à l\'étranger par an de foyers soumis à l\'ISF entre 2011 et 2016, pour 370 retours.',
+      valeur: '90 à 900',
+      legende: 'très hauts patrimoines partiraient à long terme pour chaque point d\'impôt en plus, selon le Conseil d\'analyse économique (2025).',
     },
     visualisation: {
       type: 'barres',
       unite: ' foyers par an',
       items: [
-        { label: 'Départs, ISF (2011-2016)', valeur: 950, accent: true },
-        { label: 'Retours, ISF (2011-2016)', valeur: 370 },
-        { label: 'Départs, IFI (2018-2021)', valeur: 260 },
-        { label: 'Retours, IFI (2018-2021)', valeur: 380 },
+        { label: 'Départs, ISF (moyenne 2011-2016)', valeur: 950 },
+        { label: 'Retours, ISF (moyenne 2011-2016)', valeur: 370 },
+        { label: 'Départs, IFI (moyenne 2018-2021)', valeur: 260, accent: true },
+        { label: 'Retours, IFI (moyenne 2018-2021)', valeur: 380, accent: true },
       ],
     },
     explication:
-      'Les départs de contribuables aisés existent et réagissent à la fiscalité : depuis le remplacement de l\'ISF par l\'impôt sur la fortune immobilière (IFI) en 2018, ils ont nettement baissé et les retours sont devenus plus nombreux. Mais il s\'agit de quelques centaines de foyers par an, à comparer à environ 150 000 redevables de l\'IFI. Le comité d\'évaluation ne peut pas affirmer que la réforme en est la seule cause, et les deux impôts ne visent pas exactement les mêmes personnes. Le Conseil d\'analyse économique estime qu\'un point d\'impôt de plus sur les très hauts patrimoines ferait partir à long terme 0,02 % à 0,23 % d\'entre eux, soit 90 à 900 foyers : un effet réel, mais modeste.',
+      'Le Conseil d\'analyse économique estime qu\'une hausse d\'un point d\'impôt sur les très hauts patrimoines ferait partir à long terme 0,02 % à 0,23 % d\'entre eux, soit 90 à 900 foyers : l\'exil fiscal existe, mais son effet est modeste. Les départs réagissent bien à la fiscalité : depuis le remplacement de l\'ISF par l\'impôt sur la fortune immobilière en 2018, ils ont baissé et les retours sont devenus plus nombreux. Ces flux portent sur quelques centaines de foyers par an, alors que 186 000 foyers ont payé l\'IFI en 2024.',
     source: {
-      nom: 'France Stratégie, Comité d\'évaluation des réformes de la fiscalité du capital, 4e rapport (2023)',
-      url: 'https://www.strategie-plan.gouv.fr/files/files/Publications/Rapport/fs-2023-rapport-isf-quatrieme_rapport_complet_17octobre_2.pdf',
+      nom: 'Conseil d\'analyse économique, Focus n° 118 (juillet 2025)',
+      url: 'https://cae-eco.fr/static/pdf/Communique-de-presse_f118_exil_fiscal.pdf',
     },
     quiz: {
-      question: 'Entre 2011 et 2016, combien de foyers soumis à l\'ISF partaient chaque année à l\'étranger, en moyenne ?',
-      choix: ['Environ 50', 'Environ 200', 'Environ 950', 'Environ 20 000'],
-      reponse: 2,
+      question: 'Selon le CAE, combien de très hauts patrimoines partiraient à long terme pour chaque point d\'impôt en plus ?',
+      choix: ['9 à 90', '90 à 900', '9 000 à 90 000', 'Plus de 100 000'],
+      reponse: 1,
     },
     verifieLe: '2026-10-26',
     publieLe: '2026-10-26',
@@ -401,32 +404,34 @@ export const faits = [
   {
     id: 'niveau-maths',
     theme: 'education',
-    ideeRecue: 'Les élèves français sont dans la moyenne européenne en mathématiques.',
-    verdict: 'faux',
+    ideeRecue: 'Le niveau des élèves français en maths s\'effondre.',
+    verdict: 'nuance',
     chiffre: {
-      valeur: '479',
-      legende: 'points pour les élèves de 4e en mathématiques (TIMSS 2023), contre 507 en moyenne dans l\'UE et l\'OCDE.',
+      valeur: '458',
+      legende: 'points en mathématiques pour les élèves français de 15 ans à PISA 2025, contre 463 en moyenne dans l\'OCDE.',
     },
     visualisation: {
       type: 'barres',
       unite: ' points',
       items: [
-        { label: 'Moyenne UE et OCDE', valeur: 507 },
-        { label: 'France', valeur: 479, accent: true },
+        { label: 'France, PISA 2022', valeur: 474 },
+        { label: 'France, PISA 2025', valeur: 458, accent: true },
+        { label: 'Moyenne OCDE, PISA 2025', valeur: 463 },
       ],
     },
     explication:
-      'L\'écart de 28 points est nettement significatif, et le score français est stable depuis 2019. Seuls 3 % des élèves français atteignent le niveau avancé, contre 11 % en moyenne. Les résultats en CM1 (484 points) restent aussi sous les moyennes européenne et internationale.',
+      'Le score français a perdu 16 points depuis 2022 et atteint son plus bas niveau depuis le début de l\'enquête, en 2000. Mais la baisse touche aussi la plupart des pays de l\'OCDE, et la France reste dans la moyenne de l\'OCDE. Le constat reste préoccupant : 36 % des élèves français de 15 ans n\'atteignent pas le niveau de base en mathématiques.',
     source: {
-      nom: 'DEPP, Note d\'information n° 24.48 (TIMSS 2023 en 4e)',
-      url: 'https://www.education.gouv.fr/depp/timss-2023-en-quatrieme-pour-les-mathematiques-des-resultats-stables-en-france-et-un-accroissement-452619',
+      nom: 'DEPP, Note d\'information n° 26.40 (PISA 2025)',
+      url: 'https://www.education.gouv.fr/depp/pisa-2025-les-acquis-des-eleves-de-15-ans-en-comprehension-de-l-ecrit-et-en-culture-mathematique-en-505645',
     },
     quiz: {
-      question: 'Quel score ont obtenu les élèves français de 4e en maths (TIMSS 2023), face à une moyenne UE et OCDE de 507 points ?',
-      choix: ['479', '507', '532', '561'],
-      reponse: 0,
+      question: 'Quel score les élèves français de 15 ans ont-ils obtenu en maths à PISA 2025, face à une moyenne OCDE de 463 ?',
+      choix: ['412', '458', '501', '532'],
+      reponse: 1,
     },
     verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
   },
   {
     id: 'logements-vacants',
@@ -493,36 +498,36 @@ export const faits = [
     verifieLe: '2026-10-26',
   },
   {
-    id: 'numerique-immateriel',
+    id: 'fibre-campagnes',
     theme: 'numerique',
-    ideeRecue: 'Le numérique est immatériel, il ne pollue presque pas.',
+    ideeRecue: 'La fibre n\'arrive pas dans les campagnes.',
     verdict: 'faux',
     chiffre: {
-      valeur: '4,4 %',
-      legende: 'de l\'empreinte carbone de la France vient du numérique, soit 29,5 millions de tonnes d\'équivalent CO₂ (2022).',
+      valeur: '95 %',
+      legende: 'des logements et locaux professionnels peuvent être raccordés à la fibre fin mars 2026.',
     },
     visualisation: {
       type: 'barres',
       unite: ' %',
       max: 100,
       items: [
-        { label: 'Terminaux (écrans, téléphones, ordinateurs…)', valeur: 50, accent: true },
-        { label: 'Centres de données', valeur: 46 },
-        { label: 'Réseaux', valeur: 4 },
+        { label: 'Ensemble du territoire', valeur: 94.9 },
+        { label: 'Réseaux publics des zones peu denses', valeur: 93.3, accent: true },
       ],
     },
     explication:
-      'L\'essentiel de l\'impact vient de la fabrication des équipements, qui représente environ 60 % de l\'empreinte carbone du numérique. L\'étude actualisée intègre désormais les centres de données situés à l\'étranger qui servent les usages français, ce qui explique en partie la hausse par rapport à l\'estimation précédente (2,5 %). Sans changement, l\'empreinte pourrait augmenter d\'environ 45 % d\'ici 2030.',
+      'Fin mars 2026, 42,8 millions de locaux étaient raccordables à la fibre, sur 45,1 millions. Dans les zones les moins denses, souvent rurales, où les collectivités ont construit leurs propres réseaux, la couverture atteint 93,3 %. Il reste environ 2,3 millions de locaux sans fibre, surtout à la campagne, et l\'objectif de 100 % est fixé à 2030. Être raccordable ne veut pas dire abonné : 27,7 millions d\'abonnements à la fibre étaient actifs à la même date.',
     source: {
-      nom: 'ADEME et Arcep, impacts environnementaux du numérique en France',
-      url: 'https://ecoresponsable.numerique.gouv.fr/docs/2024/etude-ademe-impacts-environnementaux-numerique.pdf',
+      nom: 'Arcep, observatoire du haut et très haut débit, 1er trimestre 2026',
+      url: 'https://www.arcep.fr/cartes-et-donnees/nos-publications-chiffrees/observatoire-des-abonnements-et-deploiements-du-haut-et-tres-haut-debit/observatoire-haut-et-tres-haut-debit-abonnements-et-deploiements-t1-2026.html',
     },
     quiz: {
-      question: 'Quelle part de l\'empreinte carbone de la France vient du numérique ?',
-      choix: ['0,1 %', '4,4 %', '15 %', '30 %'],
-      reponse: 1,
+      question: 'Quelle part des logements et locaux professionnels peut être raccordée à la fibre (mars 2026) ?',
+      choix: ['35 %', '60 %', '75 %', '95 %'],
+      reponse: 3,
     },
     verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
   },
   {
     id: 'cinema-deserte',
@@ -687,29 +692,29 @@ export const faits = [
     ideeRecue: 'Il y a beaucoup plus de fonctionnaires en France qu\'ailleurs.',
     verdict: 'nuance',
     chiffre: {
-      valeur: '21,1 %',
-      legende: 'des emplois en France relèvent des administrations publiques (2021), contre 18,6 % en moyenne dans l\'OCDE.',
+      valeur: '5,9 millions',
+      legende: 'd\'agents travaillent dans la fonction publique fin 2024, soit environ un emploi sur cinq.',
     },
     visualisation: {
       type: 'barres',
-      unite: ' %',
+      unite: ' % de l\'emploi',
       items: [
         { label: 'Norvège (2023)', valeur: 30.1 },
         { label: 'Danemark (2023)', valeur: 27.3 },
-        { label: 'France (2021)', valeur: 21.1, accent: true },
-        { label: 'Moyenne OCDE (2021)', valeur: 18.6 },
+        { label: 'France (2024)', valeur: 20, accent: true },
+        { label: 'Moyenne OCDE (2023)', valeur: 18.4 },
       ],
     },
     explication:
-      'La part de l\'emploi public est plus élevée en France que dans la moyenne des pays de l\'OCDE, mais bien plus basse que dans les pays nordiques, où elle dépasse 25 %. Entre 2019 et 2023, cette part a même reculé de 0,9 point en France, l\'une des plus fortes baisses de l\'OCDE, car l\'emploi total a progressé plus vite que l\'emploi public. Les comparaisons dépendent aussi de ce que chaque pays confie à l\'État ou au privé (hôpitaux, écoles…).',
+      'La fonction publique représente environ 20 % des personnes en emploi en France (calcul de FIPECO à partir des données de l\'Insee), un peu plus que la moyenne des pays de l\'OCDE (18,4 %), mais bien moins que les pays nordiques, où la part dépasse 25 %. En 2024, les effectifs ont augmenté de 0,6 %, uniquement grâce aux contractuels : le nombre de fonctionnaires est resté stable. Les comparaisons dépendent aussi de ce que chaque pays confie au public ou au privé, comme les hôpitaux ou les écoles.',
     source: {
-      nom: 'OCDE, Panorama des administrations publiques 2025 (emploi dans les administrations publiques)',
-      url: 'https://www.oecd.org/fr/publications/panorama-des-administrations-publiques-2025_758a7905-fr/full-report/employment-in-general-government_dafcfac5',
+      nom: 'Insee Première n° 2094, l\'emploi dans la fonction publique en 2024 (comparaison : OCDE, Panorama des administrations publiques 2025)',
+      url: 'https://www.insee.fr/fr/statistiques/8732435',
     },
     quiz: {
-      question: 'Quelle part des emplois relève des administrations publiques en France (2021) ?',
-      choix: ['9 %', '21 %', '35 %', '48 %'],
-      reponse: 1,
+      question: 'Combien d\'agents travaillent dans la fonction publique en France fin 2024 ?',
+      choix: ['1,2 million', '3,1 millions', '5,9 millions', '11 millions'],
+      reponse: 2,
     },
     verifieLe: '2026-10-26',
     publieLe: '2026-10-26',
