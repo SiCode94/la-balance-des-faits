@@ -3,7 +3,7 @@
  *
  * Champs :
  *  id            identifiant unique (slug)
- *  theme         catégorie affichée sur la carte
+ *  theme         id d'un thème de js/data/themes.js
  *  ideeRecue     l'affirmation à vérifier (recto)
  *  verdict       'faux' | 'nuance' | 'vrai'
  *  chiffre       { valeur, legende } : le chiffre clé et son contexte
@@ -15,7 +15,7 @@
 export const faits = [
   {
     id: 'part-etrangers',
-    theme: 'Immigration',
+    theme: 'immigration',
     ideeRecue: 'Les étrangers représentent une part considérable de la population française.',
     verdict: 'nuance',
     chiffre: {
@@ -42,7 +42,7 @@ export const faits = [
   },
   {
     id: 'dette-publique',
-    theme: 'Économie',
+    theme: 'economie',
     ideeRecue: 'La France est le pays le plus endetté d\'Europe.',
     verdict: 'faux',
     chiffre: {
@@ -69,7 +69,7 @@ export const faits = [
   },
   {
     id: 'homicides',
-    theme: 'Sécurité',
+    theme: 'securite',
     ideeRecue: 'Les homicides explosent en France.',
     verdict: 'nuance',
     chiffre: {

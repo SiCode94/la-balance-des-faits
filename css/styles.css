@@ -1,28 +1,22 @@
 body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
 .font-display { font-family: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif; }
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
 
-/* Carte retournable : les deux faces occupent la même cellule de grille,
-   la carte prend donc la hauteur de la face la plus haute. */
-.flip-card { perspective: 1400px; }
-.flip-inner {
-  display: grid;
-  transform-style: preserve-3d;
-  transition: transform .65s cubic-bezier(.2, .7, .2, 1);
-}
-.flip-face {
-  grid-area: 1 / 1;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-.flip-back { transform: rotateY(180deg); }
-.flip-card.is-flipped .flip-inner { transform: rotateY(180deg); }
+/* La carte s'agrandit depuis le centre à l'ouverture. */
+dialog#detail { margin: auto; padding: 0; }
+dialog[open] { animation: grow .35s cubic-bezier(.2, .8, .2, 1); }
+dialog::backdrop { background: rgba(10, 11, 13, .8); }
+@keyframes grow { from { opacity: 0; transform: scale(.78); } }
+body:has(dialog[open]) { overflow: hidden; }
 
-/* Barres : elles se remplissent quand la carte est retournée. */
-.bar-fill { width: 0; transition: width .9s cubic-bezier(.2, .7, .2, 1) .35s; }
-.flip-card.is-flipped .bar-fill { width: var(--w); }
+/* Barres : elles se remplissent à l'ouverture. */
+.bar-fill { width: 0; animation: fill .9s cubic-bezier(.2, .7, .2, 1) .25s forwards; }
+@keyframes fill { to { width: var(--w); } }
 
-:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
+:focus-visible { outline: 3px solid #D9B44A; outline-offset: 3px; }
 
 @media (prefers-reduced-motion: reduce) {
-  .flip-inner, .bar-fill { transition: none; }
+  dialog[open] { animation: none; }
+  .bar-fill { animation: none; width: var(--w); }
 }

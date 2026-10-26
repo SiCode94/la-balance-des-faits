@@ -1,0 +1,23 @@
+/** Liste des thèmes (onglets). Ajouter un thème = ajouter une ligne. L'ordre est celui des onglets. */
+export const themes = [
+  { id: 'economie',      nom: 'Économie' },
+  { id: 'fiscalite',     nom: 'Fiscalité' },
+  { id: 'emploi',        nom: 'Emploi' },
+  { id: 'retraites',     nom: 'Retraites' },
+  { id: 'immigration',   nom: 'Immigration' },
+  { id: 'securite',      nom: 'Sécurité' },
+  { id: 'justice',       nom: 'Justice' },
+  { id: 'ecologie',      nom: 'Écologie' },
+  { id: 'energie',       nom: 'Énergie' },
+  { id: 'agriculture',   nom: 'Agriculture' },
+  { id: 'sante',         nom: 'Santé' },
+  { id: 'education',     nom: 'Éducation' },
+  { id: 'logement',      nom: 'Logement' },
+  { id: 'transports',    nom: 'Transports' },
+  { id: 'numerique',     nom: 'Numérique' },
+  { id: 'culture',       nom: 'Culture' },
+  { id: 'sport',         nom: 'Sport' },
+  { id: 'institutions',  nom: 'Institutions' },
+  { id: 'defense',       nom: 'Défense' },
+  { id: 'international', nom: 'International' },
+];

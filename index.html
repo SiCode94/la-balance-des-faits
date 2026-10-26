@@ -2,36 +2,58 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>La Balance des Faits</title>
   <meta name="description" content="Fact-checking politique : des idées reçues confrontées aux chiffres officiels.">
+  <meta name="theme-color" content="#14161A">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Balance des Faits">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&display=swap" rel="stylesheet">
   <!-- MVP : Tailwind via CDN. Pour la production, passer à la CLI Tailwind. -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: {
+      ink:   { 950: '#0E1013', 900: '#14161A', 800: '#1C2026', 700: '#262B33', 600: '#3A414B' },
+      brass: { 300: '#E6CC7A', 400: '#D9B44A', 500: '#C9A227' },
+    } } } };
+  </script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-slate-100 text-slate-900 antialiased">
+<body class="bg-ink-900 text-stone-200 antialiased">
 
-  <header class="bg-slate-900 text-white">
-    <div class="mx-auto max-w-5xl px-5 py-14 sm:py-20">
-      <h1 class="font-display text-4xl font-bold tracking-tight sm:text-6xl">La Balance des Faits</h1>
-      <p class="mt-5 max-w-xl text-lg leading-relaxed text-slate-300">
-        Une idée reçue d'un côté, les chiffres officiels de l'autre. Chaque carte confronte une affirmation
-        courante aux données publiques, avec la source à portée de clic.
+  <header class="mx-auto flex max-w-5xl items-center gap-4 px-5 pb-6 pt-8">
+    <img src="icons/logo.svg" alt="" width="64" height="64" class="h-14 w-14 rounded-xl sm:h-16 sm:w-16">
+    <div>
+      <h1 class="font-display text-2xl font-bold tracking-tight text-stone-50 sm:text-4xl">La Balance des Faits</h1>
+      <p class="mt-1 max-w-xl text-sm leading-relaxed text-stone-400 sm:text-base">
+        Une idée reçue d'un côté, les chiffres officiels de l'autre, avec la source à portée de clic.
       </p>
     </div>
   </header>
 
-  <main class="mx-auto max-w-5xl px-5 py-10 sm:py-14">
-    <p class="mb-6 text-sm text-slate-600">Cliquez sur une carte pour la retourner et voir les faits.</p>
-    <section id="grille" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" aria-label="Idées reçues"></section>
+  <nav class="sticky top-0 z-10 border-y border-ink-700 bg-ink-900/95 backdrop-blur" aria-label="Thèmes">
+    <div id="onglets" role="tablist" class="no-scrollbar mx-auto flex max-w-5xl gap-2 overflow-x-auto px-5 py-3"></div>
+  </nav>
+
+  <main class="mx-auto max-w-5xl px-5 py-8">
+    <h2 id="titre-theme" class="font-display text-2xl font-bold text-stone-50"></h2>
+    <p id="vide" class="mt-4 max-w-md text-stone-400" hidden>
+      Aucune carte dans ce thème pour l'instant. Les premières arrivent bientôt.
+    </p>
+    <section id="grille" class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4" aria-live="polite"></section>
   </main>
 
-  <footer class="mx-auto max-w-5xl px-5 pb-12 text-sm leading-relaxed text-slate-600">
-    Les chiffres proviennent d'organismes publics (Insee, Eurostat, ministère de l'Intérieur) et portent chacun
-    une date de vérification. Les données évoluent : consultez toujours la source pour la dernière version.
+  <dialog id="detail" aria-labelledby="detail-titre"
+    class="m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-2xl border border-brass-500/60 bg-ink-800 p-0 text-stone-200"></dialog>
+
+  <footer class="mx-auto max-w-5xl px-5 pb-12 text-sm leading-relaxed text-stone-500">
+    Les chiffres proviennent d'organismes publics et portent chacun une date de vérification.
+    Les données évoluent : consultez toujours la source pour la dernière version.
   </footer>
 
   <script type="module" src="js/main.js"></script>
