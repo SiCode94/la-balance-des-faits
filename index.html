@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Balance des Faits</title>
+  <meta name="description" content="Fact-checking politique : des idées reçues confrontées aux chiffres officiels.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&display=swap" rel="stylesheet">
+  <!-- MVP : Tailwind via CDN. Pour la production, passer à la CLI Tailwind. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-100 text-slate-900 antialiased">
+
+  <header class="bg-slate-900 text-white">
+    <div class="mx-auto max-w-5xl px-5 py-14 sm:py-20">
+      <h1 class="font-display text-4xl font-bold tracking-tight sm:text-6xl">La Balance des Faits</h1>
+      <p class="mt-5 max-w-xl text-lg leading-relaxed text-slate-300">
+        Une idée reçue d'un côté, les chiffres officiels de l'autre. Chaque carte confronte une affirmation
+        courante aux données publiques, avec la source à portée de clic.
+      </p>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-5 py-10 sm:py-14">
+    <p class="mb-6 text-sm text-slate-600">Cliquez sur une carte pour la retourner et voir les faits.</p>
+    <section id="grille" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" aria-label="Idées reçues"></section>
+  </main>
+
+  <footer class="mx-auto max-w-5xl px-5 pb-12 text-sm leading-relaxed text-slate-600">
+    Les chiffres proviennent d'organismes publics (Insee, Eurostat, ministère de l'Intérieur) et portent chacun
+    une date de vérification. Les données évoluent : consultez toujours la source pour la dernière version.
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
