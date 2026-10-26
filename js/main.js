@@ -18,7 +18,7 @@ const dialogDetail = document.getElementById('detail');
 const detail = createDetail(dialogDetail);
 const questions = createQuestions(document.getElementById('questions'), themes);
 document.getElementById('ouvrir-questions').addEventListener('click', questions.ouvrir);
-const quiz = createQuiz(document.getElementById('quiz'), faits, themes, (f) => ouvrirCarte(f));
+const quiz = createQuiz(document.getElementById('quiz'), faits, themes, ouvrirCarte);
 document.getElementById('ouvrir-quiz').addEventListener('click', quiz.ouvrir);
 createBandeauInstallation(document.getElementById('bandeau-installation'));
 
@@ -43,13 +43,18 @@ function afficher(id) {
 
 // Une carte ouverte a son propre lien (#id-de-la-carte) ; à la fermeture, on revient au lien du thème.
 let themeActif = 'tous';
-function ouvrirCarte(fait) {
+let apresFermetureCarte = null; // ex. revenir au quiz quand la carte a été ouverte depuis lui
+function ouvrirCarte(fait, apresFermeture = null) {
+  apresFermetureCarte = apresFermeture;
   detail.ouvrir(fait, parId[fait.theme]);
   history.replaceState(null, '', `#${fait.id}`);
   compter(new URL(`cartes/${fait.id}.html`, config.site).pathname, fait.ideeRecue); // même chemin que la page de la carte
 }
 dialogDetail.addEventListener('close', () => {
   history.replaceState(null, '', themeActif === 'tous' ? location.pathname : `#${themeActif}`);
+  const suite = apresFermetureCarte;
+  apresFermetureCarte = null;
+  suite?.();
 });
 
 /** Suit l'ancre de l'adresse : un thème, une carte partagée (#id-de-la-carte) ou #question. */

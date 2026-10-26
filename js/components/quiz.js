@@ -11,13 +11,15 @@ const boutonSecondaire = 'rounded-full border border-brass-500 px-5 py-2 text-sm
 
 /**
  * Quiz sur les chiffres (élément <dialog>) : `ouvrir()`. Chaque carte qui a un champ `quiz`
- * fournit une question à choix multiples. `onVoirCarte(fait)` ouvre la fiche complète d'une carte.
+ * fournit une question à choix multiples. `onVoirCarte(fait, reprendre)` ouvre la fiche complète d'une carte
+ * et doit appeler `reprendre()` à sa fermeture, pour revenir au quiz là où on en était.
  */
 export function createQuiz(dialog, faits, themes, onVoirCarte) {
   const parId = Object.fromEntries(themes.map((t) => [t.id, t]));
   let questions = [];
   let rang = 0;
   let score = 0;
+  let enCours = false; // une partie commencée et pas encore terminée
 
   dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
 
@@ -25,6 +27,7 @@ export function createQuiz(dialog, faits, themes, onVoirCarte) {
     questions = melanger(faits.filter((f) => f.quiz)).slice(0, NB_QUESTIONS);
     rang = 0;
     score = 0;
+    enCours = true;
     afficherQuestion();
     if (!dialog.open) dialog.showModal();
   }
@@ -76,7 +79,7 @@ export function createQuiz(dialog, faits, themes, onVoirCarte) {
       if (derniere) afficherResultat(); else afficherQuestion();
     });
     const voir = el('button', { type: 'button', class: 'text-sm font-medium text-brass-400 underline underline-offset-4' }, 'Voir la carte complète');
-    voir.addEventListener('click', () => { dialog.close(); onVoirCarte(fait); });
+    voir.addEventListener('click', () => { dialog.close(); onVoirCarte(fait, reprendre); });
 
     // Rappel des choix : la bonne réponse en vert, la mauvaise réponse choisie en rouge.
     const recap = choix.map((c, i) => el('span', {
@@ -106,6 +109,7 @@ export function createQuiz(dialog, faits, themes, onVoirCarte) {
   }
 
   function afficherResultat() {
+    enCours = false;
     const total = questions.length;
     const record = Math.max(score, lireRecord());
     ecrireRecord(record);
@@ -133,7 +137,13 @@ export function createQuiz(dialog, faits, themes, onVoirCarte) {
     dialog.querySelector('[autofocus]')?.focus();
   }
 
-  return { ouvrir: demarrer };
+  /** Rouvre le quiz tel qu'on l'a laissé (même question, même score). */
+  function reprendre() {
+    if (!dialog.open) dialog.showModal();
+  }
+
+  // « Jouer » reprend une partie interrompue au lieu de la perdre ; sinon, nouvelle partie.
+  return { ouvrir: () => (enCours ? reprendre() : demarrer()) };
 }
 
 function appreciation(part) {
