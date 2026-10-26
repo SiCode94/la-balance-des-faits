@@ -42,9 +42,6 @@ async function image(arbre) {
   return new Resvg(svg).render().asPng();
 }
 
-/** La police des titres n'a pas le signe « ≈ » : on l'écrit en toutes lettres dans les images. */
-const sansApprox = (texte) => texte.replace(/≈\s*/g, 'env. ');
-
 function cadre(...enfants) {
   // Dimensions explicites : satori ajoute les marges intérieures à la taille au lieu de les y inclure.
   return h('div', { width: 1200, height: 630, backgroundColor: '#14161A', color: '#F5F5F4', fontFamily: 'Bricolage' },
@@ -65,7 +62,7 @@ function imageCarte(fait) {
     h('div', { fontSize: taille, fontWeight: 700, lineHeight: 1.15 }, `« ${fait.ideeRecue} »`),
     h('div', { alignItems: 'center', gap: 32 },
       h('div', { backgroundColor: couleur.fond, color: couleur.texte, fontSize: 40, fontWeight: 700, padding: '10px 32px', borderRadius: 999 }, verdict.label),
-      h('div', { color: '#D9B44A', fontSize: 64, fontWeight: 700 }, sansApprox(fait.chiffre.valeur)),
+      h('div', { color: '#D6D3D1', fontSize: 36, fontWeight: 500 }, 'Voir les chiffres officiels'),
     ),
   );
 }
