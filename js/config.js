@@ -7,5 +7,5 @@
  *             Laisser vide tant qu'il n'y en a pas : le panneau l'indique au visiteur.
  */
 export const config = {
-  formulaire: '',
+  formulaire: 'https://formspree.io/f/xzeeevyr',
 };
