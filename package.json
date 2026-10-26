@@ -1,0 +1,11 @@
+{
+  "name": "la-balance-des-faits",
+  "private": true,
+  "scripts": {
+    "css": "tailwindcss -i css/tailwind.src.css -o css/tailwind.css --minify"
+  },
+  "devDependencies": {
+    "@fontsource/bricolage-grotesque": "5.2.8",
+    "tailwindcss": "3.4.17"
+  }
+}

@@ -41,6 +41,10 @@ export function createQuestions(dialog, themes) {
 
   formulaire.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (!navigator.onLine) {
+      afficherEtat('Vous êtes hors connexion. Votre texte est conservé : réessayez une fois connecté.', 'text-amber-200');
+      return;
+    }
     envoyer.disabled = true;
     afficherEtat('Envoi…', 'text-stone-400');
     try {

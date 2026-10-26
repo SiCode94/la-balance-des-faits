@@ -1,3 +1,9 @@
+/* Police des titres, servie par le site pour fonctionner hors connexion (licence : fonts/OFL.txt). */
+@font-face { font-family: "Bricolage Grotesque"; font-weight: 500; font-display: swap;
+  src: url("../fonts/bricolage-grotesque-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Bricolage Grotesque"; font-weight: 700; font-display: swap;
+  src: url("../fonts/bricolage-grotesque-latin-700-normal.woff2") format("woff2"); }
+
 body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
 .font-display { font-family: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif; }
 .no-scrollbar { scrollbar-width: none; }
