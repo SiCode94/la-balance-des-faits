@@ -4,7 +4,7 @@ import { compter } from '../statistiques.js';
 import { partagerTexte } from '../utils/partage.js';
 import { avantOuverture, decalerJour, formatDuree, formatJour } from '../utils/calendrier.js';
 import { enregistrerReponse, record, reponsesDuJour, serieAffichee } from '../utils/progression.js';
-import { boutonPrincipal, boutonSecondaire } from './quiz.js';
+import { boutonPrincipal } from './quiz.js';
 
 export const NB_DEFI = 3;
 
@@ -67,77 +67,63 @@ function partagerResultat(jour, reponses, serie, bouton) {
 }
 
 /**
- * Bloc « au quotidien » de l'accueil : défi du jour, carte du jour, carte de demain floutée, quiz libre.
+ * Bloc « Aujourd'hui » de l'accueil, compact pour le téléphone : une ligne pour le défi (et le quiz libre),
+ * puis la carte du jour et celle de demain (floutée) côte à côte.
  * `maj()` le redessine (après une réponse au défi, ou chaque minute pour les comptes à rebours).
  */
 export function createQuotidien(conteneur, { jour, questions, carteDuJour, prochaine, themes, ouvrirDefi, ouvrirCarte, ouvrirQuizLibre }) {
   const nomTheme = (f) => themes.find((t) => t.id === f.theme)?.nom ?? '';
-  const bloc = 'flex flex-col gap-3 rounded-2xl border bg-ink-800 p-5';
+  const tuile = 'flex min-w-0 flex-col gap-1.5 rounded-xl border bg-ink-800 p-3 text-left';
 
-  function blocDefi() {
+  function ligneDefi() {
     const reponses = reponsesDuJour(jour, questions.length);
     const fini = !reponses.includes(null);
     const commence = reponses.some((r) => r !== null);
     const serie = serieAffichee(jour);
-    const action = el('button', { type: 'button', class: `self-start ${boutonPrincipal}` },
-      fini ? 'Voir mon résultat' : commence ? 'Continuer' : 'Jouer');
+    const action = el('button', { type: 'button', class: `shrink-0 ${boutonPrincipal}` },
+      fini ? 'Résultat' : commence ? 'Continuer' : 'Jouer');
     action.addEventListener('click', ouvrirDefi);
-    return el('section', { class: `${bloc} border-brass-500/60 sm:col-span-2` }, [
-      el('div', { class: 'flex items-center justify-between gap-3' }, [
-        el('h2', { class: 'font-display text-lg font-bold text-stone-50' }, 'Défi du jour'),
-        el('span', { class: 'text-sm font-semibold text-brass-300' }, `🔥 ${serie}`),
+    const libre = el('button', { type: 'button', class: 'text-brass-400 underline underline-offset-4' }, 'quiz libre');
+    libre.addEventListener('click', ouvrirQuizLibre);
+    return el('section', { class: 'col-span-2 flex items-center gap-3 rounded-xl border border-brass-500/60 bg-ink-800 p-3' }, [
+      el('span', { class: 'shrink-0 text-2xl', 'aria-hidden': 'true' }, '🔥'),
+      el('div', { class: 'min-w-0 flex-1' }, [
+        el('h2', { class: 'font-display text-base font-bold leading-tight text-stone-50' }, `Défi du jour · ${serie} jour${serie > 1 ? 's' : ''}`),
+        el('p', { class: 'text-xs text-stone-400' }, fini
+          ? [`${emojis(reponses)} · prochain dans ${formatDuree(avantOuverture())} · `, libre]
+          : [`${questions.length} questions, les mêmes pour tous · ou `, libre]),
       ]),
-      el('p', { class: 'text-sm text-stone-400' }, fini
-        ? `${emojis(reponses)}  ${reponses.filter(Boolean).length}/${reponses.length} · prochain défi dans ${formatDuree(avantOuverture())}`
-        : `${questions.length} questions sur les chiffres, les mêmes pour tout le monde aujourd'hui. Jouez chaque jour pour faire grandir votre flamme.`),
       action,
     ]);
   }
 
-  function blocCarteDuJour() {
+  function tuileCarteDuJour() {
     if (!carteDuJour) return null;
     const duJour = carteDuJour.publieLe === jour;
-    const lire = el('button', { type: 'button', class: 'mt-auto self-start text-sm font-medium text-brass-400 underline underline-offset-4' }, 'Lire la carte');
-    lire.addEventListener('click', () => ouvrirCarte(carteDuJour));
-    return el('section', { class: `${bloc} border-ink-600` }, [
-      el('p', { class: 'text-xs font-semibold uppercase tracking-wide text-brass-300' }, duJour ? `Carte du jour · ${formatJour(jour)}` : 'Dernière carte'),
-      el('span', { class: 'text-xs text-stone-400' }, nomTheme(carteDuJour)),
-      el('p', { class: 'font-display text-base font-bold leading-snug text-stone-100' }, carteDuJour.ideeRecue),
-      lire,
+    const b = el('button', { type: 'button', class: `${tuile} border-ink-600 hover:border-brass-500` }, [
+      el('span', { class: 'text-[11px] font-semibold uppercase tracking-wide text-brass-300' }, duJour ? 'Carte du jour' : 'Dernière carte'),
+      el('span', { class: 'line-clamp-3 font-display text-sm font-bold leading-snug text-stone-100' }, carteDuJour.ideeRecue),
+      el('span', { class: 'mt-auto text-xs text-stone-400' }, nomTheme(carteDuJour)),
     ]);
+    b.addEventListener('click', () => ouvrirCarte(carteDuJour));
+    return b;
   }
 
-  function blocDemain() {
+  function tuileDemain() {
     if (!prochaine) return null;
     const demain = prochaine.publieLe === decalerJour(jour, 1);
     // Le texte flouté est un leurre : l'idée reçue de demain n'est pas dans la page.
-    return el('section', { class: `${bloc} border-dashed border-ink-600`, 'aria-label': 'Prochaine carte' }, [
-      el('p', { class: 'text-xs font-semibold uppercase tracking-wide text-stone-400' },
-        demain ? 'Demain à 9 h' : `Le ${formatJour(prochaine.publieLe)} à 9 h`),
-      el('span', { class: 'text-xs text-stone-400' }, nomTheme(prochaine)),
-      el('p', { class: 'select-none font-display text-base font-bold leading-snug text-stone-100 blur-sm', 'aria-hidden': 'true' },
-        'Une nouvelle idée reçue passée au crible des chiffres officiels.'),
-      el('p', { class: 'mt-auto text-sm font-medium text-stone-300' },
-        demain ? `Disponible dans ${formatDuree(avantOuverture())}` : 'Bientôt disponible'),
-    ]);
-  }
-
-  function blocQuizLibre() {
-    const jouer = el('button', { type: 'button', class: `shrink-0 ${boutonSecondaire}` }, 'Jouer');
-    jouer.addEventListener('click', ouvrirQuizLibre);
-    return el('section', { class: `${bloc} border-ink-600 sm:col-span-2` }, [
-      el('div', { class: 'flex items-center justify-between gap-4' }, [
-        el('div', {}, [
-          el('h2', { class: 'font-display text-lg font-bold text-stone-50' }, 'Quiz libre'),
-          el('p', { class: 'mt-0.5 text-sm text-stone-400' }, '10 questions au hasard sur toutes les cartes, autant de parties que vous voulez.'),
-        ]),
-        jouer,
-      ]),
+    return el('div', { class: `${tuile} border-dashed border-ink-600`, 'aria-label': 'Prochaine carte' }, [
+      el('span', { class: 'text-[11px] font-semibold uppercase tracking-wide text-stone-400' }, demain ? 'Demain à 9 h' : `Le ${formatJour(prochaine.publieLe)}`),
+      el('span', { class: 'select-none font-display text-sm font-bold leading-snug text-stone-100 blur-sm', 'aria-hidden': 'true' },
+        'Une nouvelle idée reçue au crible.'),
+      el('span', { class: 'mt-auto text-xs text-stone-400' },
+        `${nomTheme(prochaine)} · ${demain ? `dans ${formatDuree(avantOuverture())}` : 'bientôt'}`),
     ]);
   }
 
   function maj() {
-    conteneur.replaceChildren(...[blocDefi(), blocCarteDuJour(), blocDemain(), blocQuizLibre()].filter(Boolean));
+    conteneur.replaceChildren(...[ligneDefi(), tuileCarteDuJour(), tuileDemain()].filter(Boolean));
   }
   maj();
   return { maj };
