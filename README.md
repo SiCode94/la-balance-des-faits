@@ -13,3 +13,5 @@ Styles : Tailwind est compilé dans `css/tailwind.css` (fichier versionné, pas 
 - Hors connexion : `sw.js` télécharge tout le site à la première visite. Ajouter tout nouveau fichier à la liste `FICHIERS`, et changer `CACHE` (balance-v3…) à chaque modification de cette liste.
 - Partage : `npm run cartes` génère une page par carte (`cartes/<id>.html`, avec aperçu pour les messageries et balisage ClaimReview) et son image (`cartes/images/<id>.png`). C'est cette page que partage le bouton « Partager ». Ne pas modifier ces fichiers à la main. Dans l'appli, `…/#id-de-la-carte` ouvre aussi la carte.
 - Adresse publique du site : `site` dans `js/config.js` (sert aux aperçus).
+- Badges : ajouter `publieLe: 'AAAA-MM-JJ'` à une carte pour l'afficher « Nouveau » et en tête de liste pendant `dureeBadges` jours (`js/config.js`), et `questionLecteur: true` si elle répond à une question reçue.
+- Statistiques : coller le code du compte GoatCounter dans `statistiques` (`js/config.js`). Sont comptés : pages vues, cartes ouvertes, et les événements `partage/<id>`, `question-envoyee`, `installation`.

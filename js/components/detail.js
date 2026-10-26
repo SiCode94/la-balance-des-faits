@@ -1,6 +1,8 @@
 import { el, formatDate } from '../utils/dom.js';
 import { renderVisualisation } from './visualisation.js';
 import { config } from '../config.js';
+import { badges } from '../utils/badges.js';
+import { compter } from '../statistiques.js';
 
 export const VERDICTS = {
   faux:   { label: 'Faux',      classes: 'bg-rose-950 text-rose-200' },
@@ -27,6 +29,8 @@ export function createDetail(dialog) {
           el('span', { class: `rounded-full px-3 py-1 text-sm font-semibold ${verdict.classes}` }, verdict.label),
           el('span', { class: 'text-sm text-stone-400' }, theme?.nom ?? ''),
         ]),
+        ...badges(fait).length ? [el('div', { class: 'flex flex-wrap gap-2' },
+          badges(fait).map((b) => el('span', { class: `rounded-full px-2.5 py-0.5 text-xs font-semibold ${b.classes}` }, b.label)))] : [],
         el('h3', { id: 'detail-titre', tabindex: '-1', autofocus: true, class: 'focus:outline-none font-display text-xl font-bold leading-snug text-stone-100' }, `« ${fait.ideeRecue} »`),
         el('div', {}, [
           el('p', { class: 'font-display text-5xl font-bold tracking-tight text-brass-400' }, fait.chiffre.valeur),
@@ -52,6 +56,7 @@ export function createDetail(dialog) {
  */
 export async function partagerCarte(fait, bouton) {
   const url = `${config.site}cartes/${fait.id}.html`;
+  compter(`partage/${fait.id}`, fait.ideeRecue, true);
   const verdict = VERDICTS[fait.verdict] ?? VERDICTS.nuance;
   const texte = `« ${fait.ideeRecue} » ${verdict.label} : ${fait.chiffre.valeur} ${fait.chiffre.legende}`;
   if (navigator.share) {

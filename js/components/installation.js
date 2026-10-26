@@ -1,4 +1,5 @@
 import { el } from '../utils/dom.js';
+import { compter } from '../statistiques.js';
 
 const CLE = 'bandeau-installation-ferme';
 
@@ -35,7 +36,10 @@ export function createBandeauInstallation(bandeau) {
     texte.textContent = 'Ajoutez le site à votre écran d\'accueil pour le retrouver en un geste.';
     fermer.before(ajouter);
   });
-  addEventListener('appinstalled', () => { bandeau.hidden = true; });
+  addEventListener('appinstalled', () => {
+    bandeau.hidden = true;
+    compter('installation', 'Appli installée', true);
+  });
 }
 
 function dejaFerme() {

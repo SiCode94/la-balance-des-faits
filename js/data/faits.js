@@ -11,6 +11,9 @@
  *  explication   2 à 4 phrases, factuelles
  *  source        { nom, url } : source officielle
  *  verifieLe     date ISO de la dernière vérification
+ *  publieLe      (facultatif) date ISO de mise en ligne : la carte affiche « Nouveau » pendant
+ *                quelques jours (config.dureeBadges) et passe en tête de liste
+ *  questionLecteur (facultatif) true si la carte répond à une question reçue par la boîte à questions
  */
 export const faits = [
   {
@@ -145,6 +148,8 @@ export const faits = [
       url: 'https://www.strategie-plan.gouv.fr/files/files/Publications/Rapport/fs-2023-rapport-isf-quatrieme_rapport_complet_17octobre_2.pdf',
     },
     verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+    questionLecteur: true,
   },
   {
     id: 'chomage-record',

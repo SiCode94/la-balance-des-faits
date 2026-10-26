@@ -5,6 +5,9 @@ import { createTile } from './components/tile.js';
 import { createDetail } from './components/detail.js';
 import { createQuestions } from './components/questions.js';
 import { createBandeauInstallation } from './components/installation.js';
+import { estRecente } from './utils/badges.js';
+import { compter } from './statistiques.js';
+import { config } from './config.js';
 
 const parId = Object.fromEntries(themes.map((t) => [t.id, t]));
 const grille = document.getElementById('grille');
@@ -25,7 +28,8 @@ for (const f of faits) {
 const onglets = createTabs(document.getElementById('onglets'), themes, comptes, afficher);
 
 function afficher(id) {
-  const liste = id === 'tous' ? faits : faits.filter((f) => f.theme === id);
+  const parTheme = id === 'tous' ? faits : faits.filter((f) => f.theme === id);
+  const liste = [...parTheme.filter((f) => estRecente(f)), ...parTheme.filter((f) => !estRecente(f))]; // nouveautés en tête
   titre.textContent = id === 'tous' ? 'Toutes les idées reçues' : parId[id].nom;
   grille.replaceChildren(...liste.map((f) => createTile(f, parId[f.theme], ouvrirCarte)));
   vide.hidden = liste.length > 0;
@@ -39,6 +43,7 @@ let themeActif = 'tous';
 function ouvrirCarte(fait) {
   detail.ouvrir(fait, parId[fait.theme]);
   history.replaceState(null, '', `#${fait.id}`);
+  compter(new URL(`cartes/${fait.id}.html`, config.site).pathname, fait.ideeRecue); // même chemin que la page de la carte
 }
 dialogDetail.addEventListener('close', () => {
   history.replaceState(null, '', themeActif === 'tous' ? location.pathname : `#${themeActif}`);

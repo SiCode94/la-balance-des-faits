@@ -180,6 +180,7 @@ function pageCarte(fait) {
   </main>
 
   <script type="module">
+    import '../js/statistiques.js';
     import { partagerCarte } from '../js/components/detail.js';
     import { faits } from '../js/data/faits.js';
     const bouton = document.getElementById('partager');

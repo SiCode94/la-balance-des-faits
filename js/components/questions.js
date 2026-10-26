@@ -1,5 +1,6 @@
 import { el } from '../utils/dom.js';
 import { config } from '../config.js';
+import { compter } from '../statistiques.js';
 
 const champ = 'w-full rounded-lg border border-ink-600 bg-ink-900 px-3 py-2 text-sm text-stone-100 placeholder:text-stone-500 focus:border-brass-500 focus:outline-none';
 
@@ -53,6 +54,7 @@ export function createQuestions(dialog, themes) {
       });
       if (!r.ok) throw new Error(r.status);
       formulaire.reset();
+      compter('question-envoyee', 'Question envoyée', true);
       afficherEtat('Merci, votre question est bien arrivée.', 'text-emerald-300');
     } catch {
       afficherEtat('L\'envoi a échoué. Réessayez dans un instant.', 'text-rose-300');
