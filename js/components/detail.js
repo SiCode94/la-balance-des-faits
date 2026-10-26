@@ -64,7 +64,7 @@ export function createDetail(dialog, faits, { onOuvrir, onSignaler } = {}) {
           el('p', { class: 'mt-1 text-sm leading-snug text-stone-400' }, fait.chiffre.legende),
         ]),
         renderVisualisation(fait.visualisation),
-        el('p', { class: 'text-sm leading-relaxed text-stone-300' }, fait.explication),
+        el('p', { class: 'text-justify hyphens-auto text-sm leading-relaxed text-stone-300' }, fait.explication),
         lireAussi(fait),
         el('div', { class: 'flex flex-col gap-3 border-t border-ink-600 pt-4 text-sm' }, [
           el('a', { href: fait.source.url, target: '_blank', rel: 'noopener noreferrer',

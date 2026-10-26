@@ -169,7 +169,7 @@ function pageCarte(fait) {
         <p class="font-display text-5xl font-bold tracking-tight text-brass-400">${echapper(fait.chiffre.valeur)}</p>
         <p class="mt-1 text-sm leading-snug text-stone-400">${echapper(fait.chiffre.legende)}</p>
       </div>${barres}
-      <p class="text-sm leading-relaxed text-stone-300">${echapper(fait.explication)}</p>
+      <p class="text-justify hyphens-auto text-sm leading-relaxed text-stone-300">${echapper(fait.explication)}</p>
       <div class="flex flex-col gap-3 border-t border-ink-600 pt-4 text-sm">
         <a href="${echapper(fait.source.url)}" target="_blank" rel="noopener noreferrer" class="font-medium text-brass-400 underline underline-offset-4">Source : ${echapper(fait.source.nom)}</a>
         <span class="text-stone-500">Vérifié le ${echapper(formatDate(fait.verifieLe))}</span>
