@@ -11,6 +11,7 @@ export const themes = [
   { id: 'energie',       nom: 'Énergie' },
   { id: 'agriculture',   nom: 'Agriculture' },
   { id: 'sante',         nom: 'Santé' },
+  { id: 'societe',       nom: 'Société' },
   { id: 'education',     nom: 'Éducation' },
   { id: 'logement',      nom: 'Logement' },
   { id: 'transports',    nom: 'Transports' },

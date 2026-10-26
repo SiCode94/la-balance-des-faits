@@ -681,4 +681,328 @@ export const faits = [
     },
     verifieLe: '2026-10-26',
   },
+  {
+    id: 'nombre-fonctionnaires',
+    theme: 'economie',
+    ideeRecue: 'Il y a beaucoup plus de fonctionnaires en France qu\'ailleurs.',
+    verdict: 'nuance',
+    chiffre: {
+      valeur: '21,1 %',
+      legende: 'des emplois en France relèvent des administrations publiques (2021), contre 18,6 % en moyenne dans l\'OCDE.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' %',
+      items: [
+        { label: 'Norvège (2023)', valeur: 30.1 },
+        { label: 'Danemark (2023)', valeur: 27.3 },
+        { label: 'France (2021)', valeur: 21.1, accent: true },
+        { label: 'Moyenne OCDE (2021)', valeur: 18.6 },
+      ],
+    },
+    explication:
+      'La part de l\'emploi public est plus élevée en France que dans la moyenne des pays de l\'OCDE, mais bien plus basse que dans les pays nordiques, où elle dépasse 25 %. Entre 2019 et 2023, cette part a même reculé de 0,9 point en France, l\'une des plus fortes baisses de l\'OCDE, car l\'emploi total a progressé plus vite que l\'emploi public. Les comparaisons dépendent aussi de ce que chaque pays confie à l\'État ou au privé (hôpitaux, écoles…).',
+    source: {
+      nom: 'OCDE, Panorama des administrations publiques 2025 (emploi dans les administrations publiques)',
+      url: 'https://www.oecd.org/fr/publications/panorama-des-administrations-publiques-2025_758a7905-fr/full-report/employment-in-general-government_dafcfac5',
+    },
+    quiz: {
+      question: 'Quelle part des emplois relève des administrations publiques en France (2021) ?',
+      choix: ['9 %', '21 %', '35 %', '48 %'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'demandes-asile',
+    theme: 'immigration',
+    ideeRecue: 'La France est le pays d\'Europe qui reçoit le plus de demandes d\'asile.',
+    verdict: 'faux',
+    chiffre: {
+      valeur: '3e',
+      legende: 'rang de la France dans l\'UE en 2025, avec 116 370 premières demandes d\'asile, derrière l\'Espagne et l\'Italie.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' demandes',
+      items: [
+        { label: 'Espagne', valeur: 141035 },
+        { label: 'Italie', valeur: 126635 },
+        { label: 'France', valeur: 116370, accent: true },
+        { label: 'Allemagne', valeur: 113170 },
+      ],
+    },
+    explication:
+      'En 2025, l\'Union européenne a enregistré 669 400 premières demandes d\'asile, 27 % de moins qu\'en 2024. L\'Espagne est passée en tête, devant l\'Italie, la France et l\'Allemagne, dont les demandes ont baissé de moitié. Les quatre premiers pays sont proches : la France reçoit environ 17 % des demandes de l\'UE. Une demande d\'asile n\'est pas une admission : une partie des demandes est rejetée.',
+    source: {
+      nom: 'Toute l\'Europe, d\'après Eurostat (premières demandes d\'asile en 2025)',
+      url: 'https://www.touteleurope.eu/l-ue-dans-le-monde/le-nombre-de-demandeurs-d-asile-dans-l-union-europeenne/',
+    },
+    quiz: {
+      question: 'Quel rang occupe la France dans l\'UE pour le nombre de premières demandes d\'asile en 2025 ?',
+      choix: ['1er', '3e', '7e', '12e'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'natalite',
+    theme: 'societe',
+    ideeRecue: 'Les Français font de moins en moins d\'enfants.',
+    verdict: 'vrai',
+    chiffre: {
+      valeur: '1,56',
+      legende: 'enfant par femme en 2025 : le niveau le plus bas depuis la fin de la Première Guerre mondiale.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' enfant par femme',
+      items: [
+        { label: '2024', valeur: 1.61 },
+        { label: '2025', valeur: 1.56, accent: true },
+      ],
+    },
+    explication:
+      'Les naissances ont baissé de 24 % depuis 2010. En 2025, pour la première fois depuis la fin de la Seconde Guerre mondiale, la France a compté plus de décès (651 000) que de naissances (645 000). La population continue pourtant d\'augmenter légèrement (69,1 millions d\'habitants au 1er janvier 2026), grâce au solde migratoire.',
+    source: {
+      nom: 'Insee Première n° 2087, bilan démographique 2025',
+      url: 'https://www.insee.fr/fr/statistiques/8719824',
+    },
+    quiz: {
+      question: 'Combien d\'enfants par femme en moyenne en France en 2025 ?',
+      choix: ['1,12', '1,56', '1,98', '2,31'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'eoliennes',
+    theme: 'energie',
+    ideeRecue: 'Les éoliennes produisent une part négligeable de l\'électricité française.',
+    verdict: 'faux',
+    chiffre: {
+      valeur: '9,1 %',
+      legende: 'de l\'électricité produite en France en 2025 vient de l\'éolien, soit 49,6 TWh.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' %',
+      max: 100,
+      items: [
+        { label: 'Nucléaire', valeur: 68.1 },
+        { label: 'Hydraulique', valeur: 11.4 },
+        { label: 'Éolien (terre et mer)', valeur: 9.1, accent: true },
+        { label: 'Solaire', valeur: 6 },
+      ],
+    },
+    explication:
+      'L\'éolien est la troisième source d\'électricité du pays, derrière le nucléaire et l\'hydraulique. Il produit plus que l\'ensemble des centrales au gaz, au fioul et au charbon (3,4 %). L\'éolien en mer progresse vite (5,7 TWh en 2025, +43 % en un an), mais reste une petite part du total. La production éolienne varie selon le vent, ce qui oblige à la compléter par d\'autres sources.',
+    source: {
+      nom: 'EDF, d\'après le Bilan électrique 2025 de RTE',
+      url: 'https://www.edf.fr/groupe-edf/espaces-dedies/jeunes-enseignants/pour-les-jeunes/lenergie-de-a-a-z/produire-de-lelectricite/leolien-en-chiffres',
+    },
+    quiz: {
+      question: 'Quelle part de l\'électricité produite en France vient de l\'éolien (2025) ?',
+      choix: ['0,5 %', '2 %', '9 %', '25 %'],
+      reponse: 2,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'proprietaires',
+    theme: 'logement',
+    ideeRecue: 'La majorité des Français sont propriétaires de leur logement.',
+    verdict: 'vrai',
+    chiffre: {
+      valeur: '57 %',
+      legende: 'des ménages sont propriétaires de leur résidence principale (début 2024).',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' %',
+      max: 100,
+      items: [
+        { label: 'Propriétaires sans emprunt', valeur: 37 },
+        { label: 'Propriétaires avec un emprunt', valeur: 20 },
+        { label: 'Locataires du privé', valeur: 23 },
+        { label: 'Locataires du parc social', valeur: 17 },
+      ],
+    },
+    explication:
+      'Un peu plus d\'un ménage sur deux est propriétaire, dont près des deux tiers n\'ont plus de crédit à rembourser. Cette part a progressé jusqu\'au milieu des années 2010, puis recule légèrement. Les locataires représentent 40 % des ménages, une part stable depuis plus de quarante ans. Devenir propriétaire est plus difficile pour les jeunes et les ménages modestes.',
+    source: {
+      nom: 'Insee Première n° 2090 (janvier 2026)',
+      url: 'https://www.insee.fr/fr/statistiques/8727513',
+    },
+    quiz: {
+      question: 'Quelle part des ménages est propriétaire de sa résidence principale en France (2024) ?',
+      choix: ['32 %', '45 %', '57 %', '78 %'],
+      reponse: 2,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'temps-de-travail',
+    theme: 'emploi',
+    ideeRecue: 'Les Français travaillent moins que les autres Européens.',
+    verdict: 'nuance',
+    chiffre: {
+      valeur: '1 661 h',
+      legende: 'de travail effectif par an pour un salarié à temps complet en France en 2024.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' h par an',
+      items: [
+        { label: 'Allemagne', valeur: 1785 },
+        { label: 'Moyenne de l\'UE', valeur: 1784 },
+        { label: 'France', valeur: 1661, accent: true },
+      ],
+    },
+    explication:
+      'À temps complet, un salarié français travaille environ 120 heures de moins par an que la moyenne européenne. Mais la comparaison s\'inverse en partie si l\'on compte tous les salariés : le temps partiel, plus répandu en Allemagne, y fait baisser la moyenne. Le volume total de travail dépend aussi du taux d\'emploi, plus faible en France chez les jeunes et les seniors.',
+    source: {
+      nom: 'Insee, durée du travail (France), et DG Trésor, étude comparative internationale (Allemagne, UE)',
+      url: 'https://www.insee.fr/fr/statistiques/8733071',
+    },
+    quiz: {
+      question: 'Combien d\'heures par an travaille en moyenne un salarié à temps complet en France (2024) ?',
+      choix: ['1 207 h', '1 661 h', '2 015 h', '2 340 h'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'detenus-etrangers',
+    theme: 'justice',
+    ideeRecue: 'La plupart des détenus en France sont étrangers.',
+    verdict: 'faux',
+    chiffre: {
+      valeur: '24,2 %',
+      legende: 'des personnes détenues sont de nationalité étrangère au 1er avril 2026, soit 21 329 sur 88 419.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' %',
+      max: 100,
+      items: [
+        { label: 'Détenus de nationalité française', valeur: 75.8 },
+        { label: 'Détenus de nationalité étrangère', valeur: 24.2, accent: true },
+      ],
+    },
+    explication:
+      'Environ un détenu sur quatre est étranger : c\'est loin d\'une majorité. Les étrangers sont toutefois surreprésentés en prison, puisqu\'ils forment environ 9 % de la population. Cette part est passée de 21 % en 2016 à près de 25 % ces dernières années.',
+    source: {
+      nom: 'Ministère de la Justice, réponse à la question écrite n° 12283 (Assemblée nationale, mai 2026)',
+      url: 'https://www.assemblee-nationale.fr/dyn/17/questions/QANR5L17QE12283',
+    },
+    quiz: {
+      question: 'Quelle part des personnes détenues en France est de nationalité étrangère (avril 2026) ?',
+      choix: ['8 %', '24 %', '51 %', '67 %'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'impot-sur-le-revenu',
+    theme: 'fiscalite',
+    ideeRecue: 'Plus de la moitié des foyers ne paient pas d\'impôt sur le revenu.',
+    verdict: 'vrai',
+    chiffre: {
+      valeur: '54 %',
+      legende: 'des foyers fiscaux n\'ont pas payé d\'impôt sur le revenu en 2025.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' %',
+      max: 100,
+      items: [
+        { label: 'Foyers imposés', valeur: 45.7 },
+        { label: 'Impôt nul', valeur: 43.3, accent: true },
+        { label: 'Remboursés (crédits d\'impôt)', valeur: 11, accent: true },
+      ],
+    },
+    explication:
+      'Sur 41,6 millions de foyers, 45,7 % ont payé l\'impôt sur le revenu en 2025. Les autres n\'en ont pas payé, et 11 % ont même reçu un remboursement grâce aux crédits d\'impôt (emploi à domicile, garde d\'enfants…). Mais tout le monde paie d\'autres impôts : la TVA sur ses achats et la CSG sur ses revenus rapportent bien plus à l\'État que l\'impôt sur le revenu. La part des foyers imposés augmente depuis quelques années.',
+    source: {
+      nom: 'DGFiP, rapport d\'activité 2025 (chiffres repris par MoneyVox)',
+      url: 'https://www.moneyvox.fr/impot/actualites/108717/46-des-francais-paient-un-impot-sur-le-revenu-919-425-foyers-de-plus-en-un-an',
+    },
+    quiz: {
+      question: 'Quelle part des foyers fiscaux a payé l\'impôt sur le revenu en 2025 ?',
+      choix: ['12 %', '28 %', '46 %', '83 %'],
+      reponse: 2,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'pays-le-plus-visite',
+    theme: 'international',
+    ideeRecue: 'La France est le pays le plus visité au monde.',
+    verdict: 'vrai',
+    chiffre: {
+      valeur: '102 millions',
+      legende: 'de touristes internationaux accueillis en France en 2025, un record.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' millions',
+      items: [
+        { label: 'France', valeur: 102, accent: true },
+        { label: 'Espagne', valeur: 97 },
+      ],
+    },
+    explication:
+      'La France reste la première destination touristique mondiale, mais l\'Espagne se rapproche. Et la France n\'est pas la première en recettes : les touristes y ont dépensé 77,5 milliards d\'euros en 2025, contre environ 105 milliards en Espagne. Le chiffre espagnol de 97 millions est une première estimation du gouvernement espagnol.',
+    source: {
+      nom: 'Ministère de l\'Économie, bilan touristique de l\'année 2025',
+      url: 'https://presse.economie.gouv.fr/bilan-touristique-de-lannee-2025-avec-102-millions-de-visiteurs-la-france-pays-le-plus-visite-du-monde-enregistre-une-nouvelle-hausse-massive-de-ses-recettes-touristiques-9/',
+    },
+    quiz: {
+      question: 'Combien de touristes internationaux la France a-t-elle accueillis en 2025 ?',
+      choix: ['32 millions', '58 millions', '102 millions', '230 millions'],
+      reponse: 2,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
+  {
+    id: 'lecture',
+    theme: 'culture',
+    ideeRecue: 'Les Français lisent de moins en moins.',
+    verdict: 'vrai',
+    chiffre: {
+      valeur: '18 livres',
+      legende: 'lus par an en moyenne en 2025, tous formats confondus, contre 22 en 2023.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' livres par an',
+      items: [
+        { label: '2023', valeur: 22 },
+        { label: '2025', valeur: 18, accent: true },
+      ],
+    },
+    explication:
+      'Le recul est net en deux ans : 63 % des Français déclarent avoir lu au moins cinq livres dans l\'année, six points de moins qu\'en 2023, et la lecture quotidienne est au plus bas depuis dix ans. Ces chiffres viennent d\'un sondage déclaratif auprès de 1 000 personnes de 15 ans et plus.',
+    source: {
+      nom: 'Centre national du livre, baromètre « Les Français et la lecture » 2025 (Ipsos)',
+      url: 'https://centrenationaldulivre.fr/sites/default/files/2025-04/CP%20CNL%20-%20Barom%C3%A8tre%202025%20Les%20Fran%C3%A7ais%20et%20la%20lecture_2.pdf',
+    },
+    quiz: {
+      question: 'Combien de livres les Français lisent-ils en moyenne par an (2025) ?',
+      choix: ['4', '18', '41', '63'],
+      reponse: 1,
+    },
+    verifieLe: '2026-10-26',
+    publieLe: '2026-10-26',
+  },
 ];
