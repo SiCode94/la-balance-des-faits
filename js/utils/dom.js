@@ -11,7 +11,7 @@ export function el(tag, attrs = {}, children = []) {
   return node;
 }
 
-const nombre = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 });
+const nombre = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 2 });
 export const formatNombre = (n) => nombre.format(n);
 
 export const formatDate = (iso) =>
