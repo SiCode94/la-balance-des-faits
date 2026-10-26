@@ -120,6 +120,33 @@ export const faits = [
     verifieLe: '2026-10-26',
   },
   {
+    id: 'exil-fiscal',
+    theme: 'fiscalite',
+    ideeRecue: 'Si on taxe les riches, ils vont quitter le pays.',
+    verdict: 'nuance',
+    chiffre: {
+      valeur: '950',
+      legende: 'départs à l\'étranger par an de foyers soumis à l\'ISF entre 2011 et 2016, pour 370 retours.',
+    },
+    visualisation: {
+      type: 'barres',
+      unite: ' foyers par an',
+      items: [
+        { label: 'Départs, ISF (2011-2016)', valeur: 950, accent: true },
+        { label: 'Retours, ISF (2011-2016)', valeur: 370 },
+        { label: 'Départs, IFI (2018-2021)', valeur: 260 },
+        { label: 'Retours, IFI (2018-2021)', valeur: 380 },
+      ],
+    },
+    explication:
+      'Les départs de contribuables aisés existent et réagissent à la fiscalité : depuis le remplacement de l\'ISF par l\'impôt sur la fortune immobilière (IFI) en 2018, ils ont nettement baissé et les retours sont devenus plus nombreux. Mais il s\'agit de quelques centaines de foyers par an, à comparer à environ 150 000 redevables de l\'IFI. Le comité d\'évaluation ne peut pas affirmer que la réforme en est la seule cause, et les deux impôts ne visent pas exactement les mêmes personnes. Le Conseil d\'analyse économique estime qu\'un point d\'impôt de plus sur les très hauts patrimoines ferait partir à long terme 0,02 % à 0,23 % d\'entre eux, soit 90 à 900 foyers : un effet réel, mais modeste.',
+    source: {
+      nom: 'France Stratégie, Comité d\'évaluation des réformes de la fiscalité du capital, 4e rapport (2023)',
+      url: 'https://www.strategie-plan.gouv.fr/files/files/Publications/Rapport/fs-2023-rapport-isf-quatrieme_rapport_complet_17octobre_2.pdf',
+    },
+    verifieLe: '2026-10-26',
+  },
+  {
     id: 'chomage-record',
     theme: 'emploi',
     ideeRecue: 'Le chômage n\'a jamais été aussi élevé en France.',
