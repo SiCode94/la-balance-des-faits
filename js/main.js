@@ -4,6 +4,7 @@ import { createTabs } from './components/tabs.js';
 import { createTile } from './components/tile.js';
 import { createDetail } from './components/detail.js';
 import { createQuestions } from './components/questions.js';
+import { createQuiz } from './components/quiz.js';
 import { createBandeauInstallation } from './components/installation.js';
 import { estRecente } from './utils/badges.js';
 import { compter } from './statistiques.js';
@@ -17,6 +18,8 @@ const dialogDetail = document.getElementById('detail');
 const detail = createDetail(dialogDetail);
 const questions = createQuestions(document.getElementById('questions'), themes);
 document.getElementById('ouvrir-questions').addEventListener('click', questions.ouvrir);
+const quiz = createQuiz(document.getElementById('quiz'), faits, themes, (f) => ouvrirCarte(f));
+document.getElementById('ouvrir-quiz').addEventListener('click', quiz.ouvrir);
 createBandeauInstallation(document.getElementById('bandeau-installation'));
 
 const comptes = { tous: faits.length };
@@ -57,6 +60,7 @@ function suivreAncre() {
   afficher(parId[ancre] ? ancre : 'tous');
   if (carte) ouvrirCarte(carte);
   if (ancre === 'question') questions.ouvrir(); // lien depuis la page Méthode
+  if (ancre === 'quiz') quiz.ouvrir(); // lien partagé avec un score
 }
 suivreAncre();
 addEventListener('hashchange', suivreAncre); // lien cliqué alors que le site est déjà ouvert
