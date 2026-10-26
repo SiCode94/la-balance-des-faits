@@ -10,8 +10,8 @@ export const VERDICTS = {
   vrai:   { label: 'Vrai',      classes: 'bg-emerald-950 text-emerald-200' },
 };
 
-/** Gère la fiche détaillée (élément <dialog>) : `ouvrir(fait, theme)`. */
-export function createDetail(dialog) {
+/** Gère la fiche détaillée (élément <dialog>) : `ouvrir(fait, theme)`. `onSignaler(fait)` ouvre le signalement d'erreur. */
+export function createDetail(dialog, { onSignaler } = {}) {
   dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); }); // clic hors de la fiche
 
   return {
@@ -23,6 +23,8 @@ export function createDetail(dialog) {
         type: 'button', class: 'rounded-full border border-brass-500 px-4 py-1.5 text-sm font-semibold text-brass-300 hover:bg-brass-500 hover:text-ink-900',
       }, 'Partager');
       partager.addEventListener('click', () => partagerCarte(fait, partager));
+      const signaler = el('button', { type: 'button', class: 'self-start text-sm text-stone-400 underline underline-offset-4 hover:text-stone-200' }, 'Signaler une erreur');
+      signaler.addEventListener('click', () => onSignaler?.(fait));
 
       dialog.replaceChildren(el('div', { class: 'flex flex-col gap-5 p-6' }, [
         el('div', { class: 'flex items-center justify-between gap-3' }, [
@@ -42,6 +44,7 @@ export function createDetail(dialog) {
           el('a', { href: fait.source.url, target: '_blank', rel: 'noopener noreferrer',
             class: 'font-medium text-brass-400 underline underline-offset-4' }, `Source : ${fait.source.nom}`),
           el('span', { class: 'text-stone-500' }, `Vérifié le ${formatDate(fait.verifieLe)}`),
+          signaler,
           el('div', { class: 'flex items-center justify-between gap-3' }, [partager, fermer]),
         ]),
       ]));

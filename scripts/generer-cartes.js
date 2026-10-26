@@ -3,6 +3,7 @@
  *  - cartes/<id>.html        une page par carte (lien à partager, aperçu dans les messageries, balisage ClaimReview)
  *  - cartes/images/<id>.png  l'image d'aperçu de chaque carte (1200 × 630)
  *  - images/apercu.png       l'image d'aperçu de l'accueil
+ *  - corrections.html        le journal des corrections, à partir de js/data/corrections.js
  *
  * Usage : npm run cartes   (à relancer après chaque ajout ou modification de carte)
  */
@@ -15,6 +16,8 @@ import { config } from '../js/config.js';
 import { VERDICTS } from '../js/components/detail.js';
 import { lignesVisualisation } from '../js/components/visualisation.js';
 import { formatDate } from '../js/utils/dom.js';
+import { corrections } from '../js/data/corrections.js';
+import { cartesAReverifier } from './a-reverifier.js';
 
 const parId = Object.fromEntries(themes.map((t) => [t.id, t]));
 const police = (graisse) => readFile(`node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-${graisse}-normal.woff`);
@@ -175,7 +178,9 @@ function pageCarte(fait) {
     <nav class="mt-6 flex flex-col gap-3 text-sm">
       <a href="../" class="self-start rounded-full bg-brass-500 px-5 py-2 font-semibold text-ink-900 hover:bg-brass-400">Voir toutes les idées reçues</a>
       <a href="../#question" class="font-medium text-brass-400 underline underline-offset-4">Proposer une idée reçue à vérifier</a>
+      <a href="../#signaler-${fait.id}" class="text-stone-400 underline underline-offset-4">Signaler une erreur sur cette carte</a>
       <a href="../methode.html" class="text-stone-400 underline underline-offset-4">Notre méthode</a>
+      <a href="../corrections.html" class="text-stone-400 underline underline-offset-4">Les corrections publiées</a>
     </nav>
   </main>
 
@@ -186,6 +191,76 @@ function pageCarte(fait) {
     const bouton = document.getElementById('partager');
     bouton.addEventListener('click', () => partagerCarte(faits.find((f) => f.id === ${JSON.stringify(fait.id)}), bouton));
   </script>
+</body>
+</html>
+`;
+}
+
+// ---------- Page Corrections ----------
+
+function pageCorrections() {
+  const ids = new Set(faits.map((f) => f.id));
+  const entrees = corrections.map((c) => `
+      <li class="flex flex-col gap-3 rounded-2xl border border-ink-600 bg-ink-800 p-5">
+        <p class="text-sm text-stone-400">${echapper(formatDate(c.date))}</p>
+        <p class="font-display text-lg font-bold leading-snug text-stone-100">${
+          c.id && ids.has(c.id)
+            ? `<a href="cartes/${c.id}.html" class="underline-offset-4 hover:underline">« ${echapper(c.carte)} »</a>`
+            : `« ${echapper(c.carte)} »`}</p>
+        <dl class="grid gap-2 text-sm leading-relaxed">
+          <div><dt class="font-semibold text-stone-300">Avant</dt><dd class="text-stone-400">${echapper(c.avant)}</dd></div>
+          <div><dt class="font-semibold text-stone-300">Désormais</dt><dd class="text-stone-200">${echapper(c.apres)}</dd></div>
+          <div><dt class="font-semibold text-stone-300">Pourquoi</dt><dd class="text-stone-400">${echapper(c.raison)}</dd></div>
+        </dl>
+      </li>`).join('');
+
+  return `<!DOCTYPE html>
+<!-- Page générée par scripts/generer-cartes.js : ne pas modifier à la main, modifier js/data/corrections.js puis lancer npm run cartes. -->
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Corrections · La Balance des Faits</title>
+  <meta name="description" content="Toutes les corrections apportées aux cartes de La Balance des Faits : ce qui a changé, quand et pourquoi.">
+  <link rel="canonical" href="${config.site}corrections.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="La Balance des Faits">
+  <meta property="og:title" content="Corrections · La Balance des Faits">
+  <meta property="og:image" content="${config.site}images/apercu.png">
+  <meta name="theme-color" content="#14161A">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preload" href="fonts/bricolage-grotesque-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/tailwind.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-ink-900 text-stone-200 antialiased">
+
+  <header class="mx-auto flex max-w-3xl items-center gap-4 px-5 pb-6 pt-8">
+    <a href="./" class="shrink-0" aria-label="Retour à l'accueil">
+      <img src="icons/logo.svg" alt="" width="64" height="64" class="h-14 w-14 rounded-xl sm:h-16 sm:w-16">
+    </a>
+    <div>
+      <p class="text-sm"><a href="./" class="text-brass-400 underline underline-offset-4">La Balance des Faits</a></p>
+      <h1 class="font-display text-2xl font-bold tracking-tight text-stone-50 sm:text-4xl">Corrections</h1>
+    </div>
+  </header>
+
+  <main class="mx-auto flex max-w-3xl flex-col gap-6 px-5 pb-12 pt-2">
+    <p class="text-[15px] leading-relaxed text-stone-300">
+      Quand une carte publiée change (un chiffre, un verdict, une source) ou est retirée, nous l'indiquons ici,
+      avec la raison. Vous pensez avoir repéré une erreur ? Utilisez le lien « Signaler une erreur » présent sur chaque carte.
+    </p>
+    <ul class="flex flex-col gap-4" role="list">${entrees}
+    </ul>
+  </main>
+
+  <footer class="mx-auto flex max-w-3xl flex-wrap gap-x-6 gap-y-2 px-5 pb-12 text-sm">
+    <a href="./" class="font-medium text-brass-400 underline underline-offset-4">← Retour aux cartes</a>
+    <a href="methode.html" class="text-stone-400 underline underline-offset-4">Notre méthode</a>
+  </footer>
+  <script type="module" src="js/statistiques.js"></script>
 </body>
 </html>
 `;
@@ -209,4 +284,8 @@ for (const fait of faits) {
   await writeFile(`cartes/${fait.id}.html`, pageCarte(fait));
 }
 await writeFile('images/apercu.png', await image(imageAccueil()));
-console.log(`${faits.length} pages de cartes et ${faits.length + 1} images générées.`);
+await writeFile('corrections.html', pageCorrections());
+console.log(`${faits.length} pages de cartes, ${faits.length + 1} images et la page Corrections (${corrections.length} entrées) générées.`);
+
+const aRevoir = cartesAReverifier(faits);
+if (aRevoir.length) console.log(`Attention : ${aRevoir.length} carte(s) vérifiée(s) il y a plus de 6 mois. Voir npm run reverifier.`);

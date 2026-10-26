@@ -16,3 +16,6 @@ Styles : Tailwind est compilé dans `css/tailwind.css` (fichier versionné, pas 
 - Badges : ajouter `publieLe: 'AAAA-MM-JJ'` à une carte pour l'afficher « Nouveau » et en tête de liste pendant `dureeBadges` jours (`js/config.js`), et `questionLecteur: true` si elle répond à une question reçue.
 - Quiz : `js/components/quiz.js`, 10 questions tirées au hasard parmi les cartes qui ont un champ `quiz` (question à choix multiples sur le chiffre clé). Lien direct : `…/#quiz`. Penser à écrire la question quand on ajoute une carte.
 - Statistiques : coller le code du compte GoatCounter dans `statistiques` (`js/config.js`). Sont comptés : pages vues, cartes ouvertes, et les événements `partage/<id>`, `question-envoyee`, `installation`.
+- Corrections : chaque correction d'une carte publiée (chiffre, verdict, source, retrait) s'ajoute dans `js/data/corrections.js` ; `npm run cartes` génère `corrections.html`.
+- Signalements : chaque carte a un lien « Signaler une erreur » (boîte à questions préremplie ; lien direct `…/#signaler-<id>`). Les messages arrivent dans Formspree avec les champs `type` et `carte`.
+- Revérification : `npm run reverifier` liste les cartes vérifiées il y a plus de 6 mois (`npm run reverifier -- 3` pour 3 mois).

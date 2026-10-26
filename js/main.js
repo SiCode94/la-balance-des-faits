@@ -15,9 +15,15 @@ const grille = document.getElementById('grille');
 const titre = document.getElementById('titre-theme');
 const vide = document.getElementById('vide');
 const dialogDetail = document.getElementById('detail');
-const detail = createDetail(dialogDetail);
+const detail = createDetail(dialogDetail, {
+  onSignaler(fait) {
+    apresFermetureCarte = null; // ne pas rouvrir le quiz par-dessus le signalement
+    dialogDetail.close();
+    questions.ouvrir(fait);
+  },
+});
 const questions = createQuestions(document.getElementById('questions'), themes);
-document.getElementById('ouvrir-questions').addEventListener('click', questions.ouvrir);
+document.getElementById('ouvrir-questions').addEventListener('click', () => questions.ouvrir());
 const quiz = createQuiz(document.getElementById('quiz'), faits, themes, ouvrirCarte);
 document.getElementById('ouvrir-quiz').addEventListener('click', quiz.ouvrir);
 createBandeauInstallation(document.getElementById('bandeau-installation'));
@@ -65,6 +71,8 @@ function suivreAncre() {
   afficher(parId[ancre] ? ancre : 'tous');
   if (carte) ouvrirCarte(carte);
   if (ancre === 'question') questions.ouvrir(); // lien depuis la page Méthode
+  const signalee = ancre.startsWith('signaler-') && faits.find((f) => f.id === ancre.slice('signaler-'.length));
+  if (signalee) questions.ouvrir(signalee); // lien « Signaler une erreur » des pages de cartes
   if (ancre === 'quiz') quiz.ouvrir(); // lien partagé avec un score
 }
 suivreAncre();
