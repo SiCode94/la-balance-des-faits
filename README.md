@@ -19,3 +19,4 @@ Styles : Tailwind est compilé dans `css/tailwind.css` (fichier versionné, pas 
 - Corrections : chaque correction d'une carte publiée (chiffre, verdict, source, retrait) s'ajoute dans `js/data/corrections.js` ; `npm run cartes` génère `corrections.html`.
 - Signalements : chaque carte a un lien « Signaler une erreur » (boîte à questions préremplie ; lien direct `…/#signaler-<id>`). Les messages arrivent dans Formspree avec les champs `type` et `carte`.
 - Revérification : `npm run reverifier` liste les cartes vérifiées il y a plus de 6 mois (`npm run reverifier -- 3` pour 3 mois).
+- Recherche et filtres : `js/components/filtres.js` (recherche dans l'idée reçue, le chiffre, l'explication et le thème ; filtre par verdict). « À lire aussi » : `js/utils/liees.js`, partagé par l'appli et les pages de cartes.

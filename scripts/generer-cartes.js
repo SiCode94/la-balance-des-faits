@@ -18,6 +18,7 @@ import { lignesVisualisation } from '../js/components/visualisation.js';
 import { formatDate } from '../js/utils/dom.js';
 import { corrections } from '../js/data/corrections.js';
 import { cartesAReverifier } from './a-reverifier.js';
+import { cartesLiees } from '../js/utils/liees.js';
 
 const parId = Object.fromEntries(themes.map((t) => [t.id, t]));
 const police = (graisse) => readFile(`node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-${graisse}-normal.woff`);
@@ -174,6 +175,17 @@ function pageCarte(fait) {
         <button id="partager" type="button" class="self-start rounded-full border border-brass-500 px-4 py-1.5 text-sm font-semibold text-brass-300 hover:bg-brass-500 hover:text-ink-900">Partager</button>
       </div>
     </article>
+
+    <section class="mt-6 flex flex-col gap-2" aria-labelledby="lire-aussi">
+      <h2 id="lire-aussi" class="text-sm font-semibold text-stone-300">À lire aussi</h2>${cartesLiees(fait, faits).map((f) => {
+        const v = VERDICTS[f.verdict] ?? VERDICTS.nuance;
+        return `
+      <a href="${f.id}.html" class="flex items-start justify-between gap-3 rounded-xl border border-ink-600 bg-ink-800 p-3 text-sm text-stone-200 hover:border-brass-500">
+        <span class="font-medium leading-snug">${echapper(f.ideeRecue)}</span>
+        <span class="shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold ${v.classes}">${echapper(v.label)}</span>
+      </a>`;
+      }).join('')}
+    </section>
 
     <nav class="mt-6 flex flex-col gap-3 text-sm">
       <a href="../" class="self-start rounded-full bg-brass-500 px-5 py-2 font-semibold text-ink-900 hover:bg-brass-400">Voir toutes les idées reçues</a>

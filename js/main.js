@@ -6,6 +6,9 @@ import { createDetail } from './components/detail.js';
 import { createQuestions } from './components/questions.js';
 import { createQuiz } from './components/quiz.js';
 import { createBandeauInstallation } from './components/installation.js';
+import { createFiltres } from './components/filtres.js';
+import { correspond } from './utils/recherche.js';
+import { el } from './utils/dom.js';
 import { estRecente } from './utils/badges.js';
 import { compter } from './statistiques.js';
 import { config } from './config.js';
@@ -14,8 +17,10 @@ const parId = Object.fromEntries(themes.map((t) => [t.id, t]));
 const grille = document.getElementById('grille');
 const titre = document.getElementById('titre-theme');
 const vide = document.getElementById('vide');
+const nombreResultats = document.getElementById('nombre-resultats');
 const dialogDetail = document.getElementById('detail');
-const detail = createDetail(dialogDetail, {
+const detail = createDetail(dialogDetail, faits, {
+  onOuvrir: (fait) => ouvrirCarte(fait, apresFermetureCarte), // carte « À lire aussi » : garde le retour au quiz
   onSignaler(fait) {
     apresFermetureCarte = null; // ne pas rouvrir le quiz par-dessus le signalement
     dialogDetail.close();
@@ -35,13 +40,29 @@ for (const f of faits) {
 }
 
 const onglets = createTabs(document.getElementById('onglets'), themes, comptes, afficher);
+const filtres = createFiltres(document.getElementById('filtres'), ({ texte }) => {
+  // Une recherche porte sur toutes les cartes : on repasse sur « Tous » pour ne rien manquer.
+  afficher(texte && themeActif !== 'tous' ? 'tous' : themeActif);
+});
 
 function afficher(id) {
+  const { texte, verdict } = filtres.etat();
   const parTheme = id === 'tous' ? faits : faits.filter((f) => f.theme === id);
-  const liste = [...parTheme.filter((f) => estRecente(f)), ...parTheme.filter((f) => !estRecente(f))]; // nouveautés en tête
+  const filtrees = parTheme.filter((f) => (verdict === 'tous' || f.verdict === verdict) && correspond(f, texte, parId[f.theme]?.nom));
+  const liste = [...filtrees.filter((f) => estRecente(f)), ...filtrees.filter((f) => !estRecente(f))]; // nouveautés en tête
   titre.textContent = id === 'tous' ? 'Toutes les idées reçues' : parId[id].nom;
   grille.replaceChildren(...liste.map((f) => createTile(f, parId[f.theme], ouvrirCarte)));
+
+  const filtre = Boolean(texte) || verdict !== 'tous';
+  nombreResultats.textContent = filtre ? `${liste.length} carte${liste.length > 1 ? 's' : ''} sur ${parTheme.length}` : '';
   vide.hidden = liste.length > 0;
+  if (!liste.length) {
+    const effacer = el('button', { type: 'button', class: 'mt-2 text-sm font-medium text-brass-400 underline underline-offset-4' }, 'Effacer la recherche et les filtres');
+    effacer.addEventListener('click', () => filtres.effacer());
+    vide.replaceChildren(...(filtre
+      ? [el('p', {}, 'Aucune carte ne correspond. Essayez un autre mot, ou proposez cette idée reçue avec le bouton « ? ».'), effacer]
+      : [el('p', {}, 'Aucune carte dans ce thème pour l\'instant. Les premières arrivent bientôt.')]));
+  }
   onglets.setActive(id);
   themeActif = id;
   history.replaceState(null, '', id === 'tous' ? location.pathname : `#${id}`); // lien partageable par thème

@@ -34,3 +34,6 @@ dialog#questions[open] { animation: glisse .3s cubic-bezier(.2, .8, .2, 1); }
   dialog[open], dialog#questions[open] { animation: none; }
   .bar-fill { animation: none; width: var(--w); }
 }
+
+/* Croix d'effacement de la recherche : grise plutôt que le bleu par défaut du navigateur. */
+#recherche::-webkit-search-cancel-button { filter: grayscale(1) brightness(1.8); cursor: pointer; }

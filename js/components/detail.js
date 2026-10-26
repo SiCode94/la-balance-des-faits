@@ -2,6 +2,7 @@ import { el, formatDate } from '../utils/dom.js';
 import { renderVisualisation } from './visualisation.js';
 import { config } from '../config.js';
 import { badges } from '../utils/badges.js';
+import { cartesLiees } from '../utils/liees.js';
 import { compter } from '../statistiques.js';
 
 export const VERDICTS = {
@@ -10,9 +11,32 @@ export const VERDICTS = {
   vrai:   { label: 'Vrai',      classes: 'bg-emerald-950 text-emerald-200' },
 };
 
-/** Gère la fiche détaillée (élément <dialog>) : `ouvrir(fait, theme)`. `onSignaler(fait)` ouvre le signalement d'erreur. */
-export function createDetail(dialog, { onSignaler } = {}) {
+/**
+ * Gère la fiche détaillée (élément <dialog>) : `ouvrir(fait, theme)`.
+ * `onOuvrir(fait)` ouvre une carte de « À lire aussi » ; `onSignaler(fait)` ouvre le signalement d'erreur.
+ */
+export function createDetail(dialog, faits, { onOuvrir, onSignaler } = {}) {
   dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); }); // clic hors de la fiche
+
+  function lireAussi(fait) {
+    const liees = cartesLiees(fait, faits);
+    if (!liees.length || !onOuvrir) return el('div', { hidden: true });
+    return el('div', { class: 'flex flex-col gap-2' }, [
+      el('p', { class: 'text-sm font-semibold text-stone-300' }, 'À lire aussi'),
+      ...liees.map((f) => {
+        const v = VERDICTS[f.verdict] ?? VERDICTS.nuance;
+        const b = el('button', {
+          type: 'button',
+          class: 'flex items-start justify-between gap-3 rounded-xl border border-ink-600 bg-ink-900 p-3 text-left text-sm text-stone-200 hover:border-brass-500',
+        }, [
+          el('span', { class: 'font-medium leading-snug' }, f.ideeRecue),
+          el('span', { class: `shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold ${v.classes}` }, v.label),
+        ]);
+        b.addEventListener('click', () => onOuvrir(f));
+        return b;
+      }),
+    ]);
+  }
 
   return {
     ouvrir(fait, theme) {
@@ -40,6 +64,7 @@ export function createDetail(dialog, { onSignaler } = {}) {
         ]),
         renderVisualisation(fait.visualisation),
         el('p', { class: 'text-sm leading-relaxed text-stone-300' }, fait.explication),
+        lireAussi(fait),
         el('div', { class: 'flex flex-col gap-3 border-t border-ink-600 pt-4 text-sm' }, [
           el('a', { href: fait.source.url, target: '_blank', rel: 'noopener noreferrer',
             class: 'font-medium text-brass-400 underline underline-offset-4' }, `Source : ${fait.source.nom}`),
@@ -48,7 +73,9 @@ export function createDetail(dialog, { onSignaler } = {}) {
           el('div', { class: 'flex items-center justify-between gap-3' }, [partager, fermer]),
         ]),
       ]));
-      dialog.showModal();
+      if (!dialog.open) dialog.showModal();
+      dialog.scrollTop = 0; // une carte « À lire aussi » s'ouvre en haut
+      dialog.querySelector('[autofocus]')?.focus();
     },
   };
 }
