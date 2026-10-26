@@ -15,6 +15,6 @@
 export const config = {
   site: 'https://sicode94.github.io/la-balance-des-faits/',
   formulaire: 'https://formspree.io/f/xzeeevyr',
-  statistiques: '',
+  statistiques: 'balancedesfaits',
   dureeBadges: 5,
 };
